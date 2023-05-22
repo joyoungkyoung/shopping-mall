@@ -1,0 +1,46 @@
+.header {
+    height: 80px;
+
+    .header-wrap {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $bk;
+        padding: 0 20px;
+        .logo {
+            color: $wh;
+            width: 250px;
+            font-size: 24px;
+        }
+        .lnb {
+            $lnb-gap: 70px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            column-gap: $lnb-gap;
+            .lnb-section {
+                position: relative;
+                display: flex;
+                column-gap: 70px;
+                &:first-child {
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: calc($lnb-gap / 2 * -1);
+                        bottom: 0;
+                        border-right: 1px solid $wh;
+                    }
+                }
+                > a {
+                    text-decoration: none;
+                    cursor: pointer;
+                    color: $wh;
+                }
+            }
+        }
+    }
+}

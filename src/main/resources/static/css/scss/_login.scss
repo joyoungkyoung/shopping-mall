@@ -1,0 +1,12 @@
+.login-wrap {
+    padding: 30px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    .title {
+        font-weight: 500;
+    }
+    .devide {
+        border-top: 1px solid $bk;
+    }
+}

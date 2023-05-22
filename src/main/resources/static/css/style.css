@@ -1,0 +1,268 @@
+/*--- typo ---*/
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Montserrat Light"), url("/static/font/Montserrat/Montserrat-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Montserrat Regular"), url("/static/font/Montserrat/Montserrat-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Montserrat Bold"), url("/static/font/Montserrat/Montserrat-Bold.woff2") format("woff2");
+}
+/*--- base ---*/
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+html {
+  font-family: "Montserrat";
+  font-size: clamp(12px, vw(16px), 16px);
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+  color: #000;
+}
+
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+i,
+img,
+span {
+  border: 0;
+}
+
+img,
+video,
+embed {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+caption {
+  display: none;
+}
+
+fieldset {
+  border: 0 none;
+}
+
+legend {
+  width: 0;
+  height: 0;
+  font-size: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+select {
+  cursor: pointer;
+}
+select::-ms-expand {
+  display: none;
+}
+
+textarea {
+  outline: none;
+}
+
+button {
+  color: inherit;
+  border: none;
+  background: none;
+  background: transparent;
+  font-family: inherit;
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+  vertical-align: middle;
+  overflow: visible;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+input::-ms-check {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+}
+
+input,
+select,
+button {
+  display: inline-block;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: 0.3s;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.form input {
+  border: 1px solid #000;
+}
+
+[class*=btn-] {
+  font-weight: 500;
+  box-shadow: inset rgba(0, 0, 0, 0.17) 0 -5px 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+[class*=btn-]:hover {
+  padding-top: 1px;
+  box-shadow: inset rgba(0, 0, 0, 0) 0 0 0 !important;
+}
+[class*=btn-].min {
+  padding-left: 20px;
+  padding-right: 20px;
+  min-width: 60px;
+  height: 30px;
+  box-shadow: inset rgba(0, 0, 0, 0.17) 0 -3px 0;
+}
+[class*=btn-].min:hover {
+  padding-top: 1px;
+}
+[class*=btn-].mid {
+  padding-left: 40px;
+  padding-right: 40px;
+  min-width: 120px;
+  height: 50px;
+}
+[class*=btn-].mid:hover {
+  padding-top: 3px;
+}
+[class*=btn-].full {
+  width: 100%;
+  height: 90px;
+  max-height: 100%;
+  font-size: 24px;
+}
+[class*=btn-].full:hover {
+  padding-top: 3px;
+}
+
+.btn-default {
+  color: #000;
+  background-color: #e4e4e4;
+}
+
+.btn-gray {
+  color: #000;
+  background-color: #f5f5f5;
+  border: #CECECE solid 1px;
+  box-shadow: inset rgba(0, 0, 0, 0.07) 0 -5px 0 !important;
+}
+
+.header {
+  height: 80px;
+}
+.header .header-wrap {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  padding: 0 20px;
+}
+.header .header-wrap .logo {
+  color: #fff;
+  width: 250px;
+  font-size: 24px;
+}
+.header .header-wrap .lnb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  -moz-column-gap: 70px;
+       column-gap: 70px;
+}
+.header .header-wrap .lnb .lnb-section {
+  position: relative;
+  display: flex;
+  -moz-column-gap: 70px;
+       column-gap: 70px;
+}
+.header .header-wrap .lnb .lnb-section:first-child::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -35px;
+  bottom: 0;
+  border-right: 1px solid #fff;
+}
+.header .header-wrap .lnb .lnb-section > a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.login-wrap {
+  padding: 30px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+.login-wrap .title {
+  font-weight: 500;
+}
+.login-wrap .devide {
+  border-top: 1px solid #000;
+}
