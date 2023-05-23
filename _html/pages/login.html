@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="../css/style.css" rel="stylesheet" />
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/include.html.js"></script>
+        <script src="../js/cookie.js"></script>
+        <title>Login</title>
+    </head>
+    <body>
+        <div data-include="components/header.html"></div>
+        <div class="login-wrap">
+            <span class="title">Welcome!</span>
+
+            <form class="form">
+                <input placeholder="아이디 (이메일)" name="username" />
+                <input placeholder="비밀번호" name="password" type="password" />
+                <button id="btn-login" class="btn-secondary mid" type="button">로그인하기</button>
+            </form>
+        </div>
+
+        <div data-include="components/footer.html"></div>
+
+        <script>
+            includeHTML(() => {
+                $("#btn-login").click((e) => {
+                    const username = $("input[name='username']").val();
+                    const password = $("input[name='password']").val();
+
+                    $.ajax({
+                        url: "http://localhost:8080/api/login",
+                        data: JSON.stringify({ username, password }),
+                        method: "post",
+                        contentType: "application/json",
+                    })
+                        .done((json) => {
+                            console.log(json);
+                            setCookie("accessToken", json.data.accessToken, 24 * 60 * 60 * 1000);
+                            setCookie("refreshToken", json.data.refreshToken, 24 * 60 * 60 * 1000);
+                            location.href = "home.html";
+                        })
+                        .fail((e) => {
+                            console.log(e);
+                        });
+                });
+            });
+        </script>
+    </body>
+</html>

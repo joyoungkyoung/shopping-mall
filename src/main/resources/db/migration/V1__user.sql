@@ -12,7 +12,10 @@ CREATE TABLE `shopping-mall`.`user` (
 	status int NOT NULL COMMENT '계정상태(정상, 정지, 삭제)',
 	is_email_alert_confirm boolean NOT NULL COMMENT '광고 및 메일수신동의 여부',
 	`point` int DEFAULT 0 NOT NULL COMMENT '마일리지 포인트',
+	refresh_token varchar(512) NULL COMMENT '리프레시 토큰',
 	create_date datetime NOT NULL,
+	update_date datetime NULL,
+	delete_date datetime NULL,
     PRIMARY KEY (id)
 );
 

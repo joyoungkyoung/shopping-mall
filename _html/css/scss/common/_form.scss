@@ -1,0 +1,10 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    input {
+        border: 1px solid $border;
+        padding: 10px;
+    }
+}

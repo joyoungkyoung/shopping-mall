@@ -1,0 +1,85 @@
+.header {
+    height: 80px;
+
+    .header-wrap {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $bk;
+        padding: 0 20px;
+        .logo {
+            color: $wh;
+            width: 250px;
+            font-size: 24px;
+        }
+        .lnb {
+            $lnb-gap: 70px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            column-gap: $lnb-gap;
+            .lnb-section {
+                position: relative;
+                display: flex;
+                column-gap: 70px;
+                &:first-child {
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: calc($lnb-gap / 2 * -1);
+                        bottom: 0;
+                        border-right: 1px solid $wh;
+                    }
+                }
+                > a {
+                    text-decoration: none;
+                    cursor: pointer;
+                    color: $wh;
+                    font-size: 14px;
+                    line-height: 2.14;
+                }
+            }
+        }
+    }
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    font-size: 14px;
+    row-gap: 20px;
+    .info-wrap {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .section {
+            .section-title {
+                font-weight: 700;
+                margin-bottom: 20px;
+            }
+            .section-item {
+                text-align: left;
+            }
+        }
+    }
+    .copyright {
+        position: relative;
+        padding: 10px 0;
+        font-size: 14px;
+        color: $gray-c;
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            width: 100%;
+            border-top: 1px solid $border-lt;
+        }
+    }
+}

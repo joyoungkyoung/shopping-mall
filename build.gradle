@@ -29,9 +29,13 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-mysql'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.springframework.boot:spring-boot-devtools:'
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' // jdbc logback
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // jakarta.validation
+	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1' // for DatatypeConverter
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5' // jwt
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5' // jwt
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // jwt
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
