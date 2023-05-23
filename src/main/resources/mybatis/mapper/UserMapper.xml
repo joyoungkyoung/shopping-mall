@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nicky.shoppingmall.domain.user.mapper.UserMapper">
+    <select id="getUserDetails" resultType="com.nicky.shoppingmall.config.userDetails.MyUserDetails">
+        /* UserMapper::getUserDetails */
+        select email AS username, password
+    	from user
+    	where email = #{username} and status = 1
+    </select>
+
+    <insert id="register" parameterType="java.util.HashMap">
+        /* UserMapper::register */
+        insert into user (type, email, nickname, password, user_level_id, status, is_email_alert_confirm, create_date )
+        values (#{type}, #{email}, #{nickname}, #{password}, #{userLevelId}, #{status}, #{isEmailAlertConfirm}, now())
+    </insert>
+
+    <update id="changeRefreshToken" parameterType="java.util.HashMap">
+        /* UserMapper::changeRefreshToken */
+        update user 
+        set refresh_token=#{refreshToken}
+        where email=#{email} and status=true
+    </update>
+</mapper>

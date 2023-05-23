@@ -1,0 +1,28 @@
+# database
+spring:
+    datasource:
+        url: jdbc:log4jdbc:mysql://localhost:3306/shopping-mall?serverTimezone=UTC&characterEncoding=UTF-8
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        username: root
+        password: Root1234!@#$
+    mvc:
+        view:
+            suffix: .html
+    devtools:
+        restart:
+            log-condition-evaluation-delta: false
+
+# mybatis
+mybatis:
+    mapper-locations: mybatis/mapper/*.xml
+
+flyway:
+    baseline-on-migrate: true
+    locations: db/migration
+    baseline-version: 1
+# logging
+logging:
+    config: classpath:logback-default.xml
+
+jwt:
+    secret: asdl;kfasl;dkf;a'lskdf;laksdflajsdlkfjasdfsdfaksldfjlksdjflkasdjfklsdf
