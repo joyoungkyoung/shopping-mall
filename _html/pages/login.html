@@ -27,7 +27,14 @@
 
         <script>
             includeHTML(() => {
-                $("#btn-login").click((e) => {
+                $("#btn-login").click((e) => login());
+
+                $("input[name='email'],input[name='password']").keyup((e) => {
+                    const event = e.originalEvent;
+                    if (event.key === "Enter") login();
+                });
+
+                function login() {
                     const email = $("input[name='email']").val();
                     const password = $("input[name='password']").val();
 
@@ -45,15 +52,17 @@
                         contentType: "application/json",
                     })
                         .done((json) => {
-                            console.log(json);
                             setCookie("accessToken", json.data.accessToken, 24 * 60 * 60 * 1000);
                             setCookie("refreshToken", json.data.refreshToken, 24 * 60 * 60 * 1000);
                             location.href = "home.html";
                         })
                         .fail((e) => {
-                            console.log(e);
+                            console.error(e);
+                            if (e.status === 400) {
+                                alert(e.responseJSON.message);
+                            }
                         });
-                });
+                }
             });
         </script>
     </body>
