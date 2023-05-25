@@ -1,4 +1,4 @@
-package com.nicky.shoppingmall.domain.user.dto;
+package com.nicky.shoppingmall.domain.auth.dto;
 
 import com.nicky.shoppingmall.config.business.BusinessDto;
 
@@ -6,11 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
-public class ReqLogin extends BusinessDto{
+public class ReqCreateAccount extends BusinessDto{
     @NotBlank
-    public String email;
+    private String email;
     @NotBlank
-    public String password;
+    private String password;
 
     @Override
     public String invalidBlank() {
