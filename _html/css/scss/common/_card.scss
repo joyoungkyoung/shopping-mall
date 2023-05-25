@@ -1,0 +1,22 @@
+.card {
+    > img {
+        width: 300px;
+        height: fit-content;
+    }
+    .title {
+        line-height: 35px;
+        font-weight: 700;
+    }
+    .detail {
+        display: flex;
+        justify-content: space-between;
+        .price {
+            font-size: 14px;
+        }
+        .like {
+            &::before {
+                content: "";
+            }
+        }
+    }
+}

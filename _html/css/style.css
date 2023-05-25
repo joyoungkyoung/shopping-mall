@@ -270,6 +270,9 @@ a {
   font-size: 14px;
   line-height: 2.14;
 }
+.header .header-wrap .lnb .lnb-section > a.hide {
+  display: none;
+}
 
 .footer {
   display: flex;
@@ -293,7 +296,7 @@ a {
 .footer .copyright {
   position: relative;
   padding: 10px 0;
-  font-size: 14px;
+  font-size: 12px;
   color: #CCCCCF;
 }
 .footer .copyright::before {

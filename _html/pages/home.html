@@ -12,14 +12,28 @@
     </head>
     <body>
         <div data-include="components/header.html"></div>
-        <div>홈페이지</div>
+        <div class="product-section">
+            <div class="card">
+                <img src="" alt="thumbnail" />
+            </div>
+        </div>
 
         <div data-include="components/footer.html"></div>
 
         <script>
             includeHTML(() => {
-                console.log("accessToken:", getCookie("accessToken"));
-                console.log("refreshToken:", getCookie("refreshToken"));
+                const accessToken = getCookie("accessToken");
+                if (accessToken) {
+                    $("#lnb-login").addClass("hide");
+                    $("#lnb-logout").removeClass("hide");
+                }
+
+                $("#lnb-logout").click(() => {
+                    deleteCookie("accessToken");
+                    deleteCookie("refreshToken");
+
+                    location.reload();
+                });
             });
         </script>
     </body>

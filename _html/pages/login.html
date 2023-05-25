@@ -8,6 +8,7 @@
         <script src="../js/jquery-3.3.1.min.js"></script>
         <script src="../js/include.html.js"></script>
         <script src="../js/cookie.js"></script>
+        <script src="../js/function.js"></script>
         <title>Login</title>
     </head>
     <body>
@@ -16,7 +17,7 @@
             <span class="title">Welcome!</span>
 
             <form class="form">
-                <input placeholder="아이디 (이메일)" name="username" />
+                <input placeholder="아이디 (이메일)" name="email" />
                 <input placeholder="비밀번호" name="password" type="password" />
                 <button id="btn-login" class="btn-secondary mid" type="button">로그인하기</button>
             </form>
@@ -27,12 +28,19 @@
         <script>
             includeHTML(() => {
                 $("#btn-login").click((e) => {
-                    const username = $("input[name='username']").val();
+                    const email = $("input[name='email']").val();
                     const password = $("input[name='password']").val();
+
+                    const isEmail = validEmail(email);
+
+                    if (!isEmail) {
+                        alert("이메일 형식이 유효하지 않습니다.");
+                        return;
+                    }
 
                     $.ajax({
                         url: "http://localhost:8080/api/login",
-                        data: JSON.stringify({ username, password }),
+                        data: JSON.stringify({ email, password }),
                         method: "post",
                         contentType: "application/json",
                     })

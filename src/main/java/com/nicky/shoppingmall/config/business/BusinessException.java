@@ -1,4 +1,6 @@
-package com.nicky.shoppingmall.config.error;
+package com.nicky.shoppingmall.config.business;
+
+import com.nicky.shoppingmall.config.error.ErrorInfo;
 
 public class BusinessException extends RuntimeException {
     protected int code;
@@ -9,7 +11,7 @@ public class BusinessException extends RuntimeException {
         this.message = error.getMessage();
     }
 
-    protected BusinessException(int code, String message) {
+    public BusinessException(int code, String message) {
         this.code = code;
         this.message = message;
     }

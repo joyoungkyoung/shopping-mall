@@ -12,10 +12,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nicky.shoppingmall.config.Response;
-import com.nicky.shoppingmall.config.error.BusinessException;
+import com.nicky.shoppingmall.config.business.BusinessException;
 import com.nicky.shoppingmall.config.error.ErrorInfo;
 import com.nicky.shoppingmall.config.jwt.JwtToken;
 import com.nicky.shoppingmall.config.jwt.JwtTokenProvider;
+import com.nicky.shoppingmall.config.util.RegexUtil;
 import com.nicky.shoppingmall.domain.user.dto.ReqCreateAccount;
 import com.nicky.shoppingmall.domain.user.dto.ReqLogin;
 import com.nicky.shoppingmall.domain.user.mapper.UserMapper;
@@ -34,11 +35,19 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public Response create(ReqCreateAccount request) throws Exception {
-        log.info("aa",request);
-        UserDetails user = userMapper.getUserDetails(request.getEmail());
+        String invalidParameter = request.invalidBlank();
+        if(invalidParameter != null) {
+            throw new BusinessException(ErrorInfo.INCLUDE_BLANK_PARAMETER.getCode(), ErrorInfo.INCLUDE_BLANK_PARAMETER.replaceMessage(invalidParameter));
+        }
 
+        boolean isEmail = RegexUtil.regexEmail(request.getEmail());
+        if(!isEmail) {
+            throw new BusinessException(ErrorInfo.INVALID_REGEX_EMAIL);
+        }
+
+        UserDetails user = userMapper.getUserDetails(request.getEmail());
         if(user != null) {
-            throw new Exception("이미 존재하는 계정입니다.");
+            throw new BusinessException(ErrorInfo.ALREADY_EXIST_ACCOUNT);
         }
 
         Map<String, Object> map = new HashMap<String, Object>();
@@ -58,14 +67,25 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public Response login(ReqLogin request) throws Exception {
+        String invalidParameter = request.invalidBlank();
+        if(invalidParameter != null) {
+            throw new BusinessException(ErrorInfo.INCLUDE_BLANK_PARAMETER.getCode(), ErrorInfo.INCLUDE_BLANK_PARAMETER.replaceMessage(invalidParameter));
+        }
+
+
+        boolean isEmail = RegexUtil.regexEmail(request.getEmail());
+        if(!isEmail) {
+            throw new BusinessException(ErrorInfo.INVALID_REGEX_EMAIL);
+        }
+
         try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
     
             JwtToken token = jwtTokenProvider.generateToken(authentication);
     
             Map<String, Object> req = new HashMap<>();
-            req.put("email", request.getUsername());
+            req.put("email", request.getEmail());
             req.put("refreshToken", token.getRefreshToken());
 
             userMapper.changeRefreshToken(req);
