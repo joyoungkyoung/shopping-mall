@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 $font-path: "scss/font";
+$image-path: "../../image";
 
 @import "./common/color";
 @import "./common/typo";
@@ -9,5 +10,7 @@ $font-path: "scss/font";
 @import "./common/form";
 @import "./common/btn";
 @import "./common/layout";
+@import "./common/card";
 
 @import "./login";
+@import "./home";

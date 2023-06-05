@@ -309,6 +309,40 @@ a {
   border-top: 1px solid #dfdfdf;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+.card > img {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.card .card-title {
+  line-height: 35px;
+  font-weight: 700;
+}
+.card .card-detail {
+  display: flex;
+  justify-content: space-between;
+}
+.card .card-detail .price {
+  font-size: 14px;
+}
+.card .card-detail .like {
+  position: relative;
+}
+.card .card-detail .like::before {
+  position: absolute;
+  content: "";
+  left: -24.5px;
+  top: 2px;
+  width: 17.5px;
+  height: 16px;
+  background-image: url("../../image/sample/icon-like.svg");
+}
+
 .login-wrap {
   margin: 0 auto;
   padding: 30px;
@@ -337,4 +371,15 @@ a {
   bottom: 0;
   width: 100%;
   border-bottom: 1px solid #000;
+}
+
+.product-section {
+  width: 100%;
+  padding: 0 40px;
+  margin: 142px auto;
+  display: flex;
+  flex-wrap: wrap;
+  -moz-column-gap: 18px;
+       column-gap: 18px;
+  row-gap: 70px;
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link th:href="@{/css/style.css}" rel="stylesheet" />
+        <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/js/cookie.js}"></script>
+        <title>Home</title>
+    </head>
+    <body>
+        <header th:replace="~{/components/header.html}"></header>
+        <div class="product-section">
+            <div class="card">
+                <img th:src="@{/image/sample/img-01@3x.png}" alt="thumbnail" />
+                <span class="card-title">[What happen] How to create</span>
+                <div class="card-detail">
+                    <span class="price">2,500 won</span>
+                    <span class="like">236</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <img th:src="@{/image/sample/img-01@3x.png}" alt="thumbnail" />
+                <span class="card-title">[What happen] How to create</span>
+                <div class="card-detail">
+                    <span class="price">2,500 won</span>
+                    <span class="like">236</span>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="~{/components/footer.html}"></footer>
+
+        <script>
+            $(document).ready(() => {
+                const accessToken = getCookie("accessToken");
+                if (accessToken) {
+                    $("#lnb-login").addClass("hide");
+                    $("#lnb-logout").removeClass("hide");
+                }
+
+                $("#lnb-logout").click(() => {
+                    deleteCookie("accessToken");
+                    deleteCookie("refreshToken");
+
+                    location.reload();
+                });
+            });
+        </script>
+    </body>
+</html>

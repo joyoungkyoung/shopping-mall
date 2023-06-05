@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .accessDeniedHandler(accessDeniedHandler)
             )
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/static/css/**", "/static/font/**", "/templates/**", "/static/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
                 .requestMatchers("/api/v1/auth/**", "/login", "/").permitAll()
                 .requestMatchers("/test3").authenticated()
                 .requestMatchers("/test").hasAuthority("ROLE_STAFF")
