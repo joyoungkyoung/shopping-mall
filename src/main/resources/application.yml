@@ -15,6 +15,8 @@ spring:
 # mybatis
 mybatis:
     type-aliases-package: com.nicky.shoppingmall.config, com.nicky.shoppingmall.domain, java.util
+    configuration:
+        map-underscore-to-camel-case: true
     mapper-locations: mybatis/mapper/*.xml
 
 flyway:

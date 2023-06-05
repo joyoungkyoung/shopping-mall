@@ -52,7 +52,7 @@
                         contentType: "application/json",
                     })
                         .done((json) => {
-                            setCookie("accessToken", json.data.accessToken, 24 * 60 * 60 * 1000);
+                            setCookie("accessToken", json.data.accessToken, 30 * 60 * 1000);
                             setCookie("refreshToken", json.data.refreshToken, 24 * 60 * 60 * 1000);
                             location.href = "home.html";
                         })

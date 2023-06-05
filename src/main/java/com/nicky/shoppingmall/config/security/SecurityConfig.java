@@ -1,4 +1,4 @@
-package com.nicky.shoppingmall.config;
+package com.nicky.shoppingmall.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
@@ -36,9 +38,16 @@ public class SecurityConfig {
             .and()
             .formLogin().disable()
             .httpBasic().disable()
+            .exceptionHandling(request -> request
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler)
+            )
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/static/css/**", "/static/font/**", "/templates/**", "/static/**").permitAll()
-                .requestMatchers("/api/**", "/login", "/").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/login", "/").permitAll()
+                .requestMatchers("/test3").authenticated()
+                .requestMatchers("/test").hasAuthority("ROLE_STAFF")
+                .requestMatchers("/test2").hasAuthority("ROLE_OWNER")
                 .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요
             )
             // UsernamePasswordAuthenticationFilter 처리 전에, JwtAuthenticationFilter 를 거침

@@ -3,23 +3,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nicky.shoppingmall.domain.auth.mapper.AuthMapper">
-    <select id="getUserDetails" resultType="MyUserDetails">
+    <select id="getUserDetails" parameterType="String" resultType="MyUserDetails">
         /* AuthMapper::getUserDetails */
-        select email AS username, password
-    	from user
+        select email AS username, password, authority_code
+    	from `user`
     	where email = #{username} and status = 1
     </select>
 
     <insert id="register" parameterType="HashMap">
         /* AuthMapper::register */
-        insert into user (type, email, nickname, password, user_level_id, status, is_email_alert_confirm, create_date )
-        values (#{type}, #{email}, #{nickname}, #{password}, #{userLevelId}, #{status}, #{isEmailAlertConfirm}, now())
+        insert into user (type, email, nickname, password, authority_code, status, is_email_alert_confirm, create_date )
+        values (#{type}, #{email}, #{nickname}, #{password}, #{authorityCode}, #{status}, #{isEmailAlertConfirm}, now())
     </insert>
 
     <update id="changeRefreshToken" parameterType="HashMap">
         /* AuthMapper::changeRefreshToken */
-        update user 
+        update `user` 
         set refresh_token=#{refreshToken}
         where email=#{email} and status=true
     </update>
+
+    <select id="getByRefreshToken" parameterType="String" resultType="RefreshTokenDto">
+        /* AuthMapper::getByRefreshToken */
+        select email
+    	from `user`
+    	where refresh_token=#{refreshToken}
+    </select>
 </mapper>

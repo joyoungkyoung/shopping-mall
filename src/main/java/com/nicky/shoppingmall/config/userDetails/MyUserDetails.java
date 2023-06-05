@@ -1,8 +1,10 @@
 package com.nicky.shoppingmall.config.userDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +13,13 @@ public class MyUserDetails implements UserDetails {
 
     private String username;
     private String password;
+    private String authorityCode;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        return null;
+        ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+authorityCode));
+        return authorities;
     }
 
     @Override

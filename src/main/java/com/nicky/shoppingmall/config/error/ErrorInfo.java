@@ -3,12 +3,16 @@ package com.nicky.shoppingmall.config.error;
 public enum ErrorInfo {
     // Default Http
 	NO_CONTENT                                      (204, "No content"),
+    ACCESS_UNAUTHORIZED                             (401, "Access is unauthorized"),
     ACCESS_DENIED                                   (403, "Access is denied"),
     SYSTEM_ERROR                                    (500, "Internal system error"),
     // Auth
     WRONG_USERNAME_OR_PASSWORD                      (10000, "아이디 또는 비밀번호가 일치하지 않습니다."),
     INVALID_REGEX_EMAIL                             (10001, "이메일 형식이 맞지 않습니다."),
     ALREADY_EXIST_ACCOUNT                           (10002, "이미 존재하는 계정입니다."),
+    INVALID_TOKEN                                   (10004, "토큰이 유효하지 않습니다."),
+    // User
+    NOT_FOUND_USER_DATA                             (20000, "유저 정보를 찾지 못했습니다."),
     // Common
     INCLUDE_BLANK_PARAMETER                         (90000, "Some strings contain spaces before and after them : {0}"), // 일부 문자열의 앞,뒤에 공백이 포함되어있습니다 : {0}
     ELEVATION_REQUIRED                              (90001, "The requested operation requires elevation."), // 요청된 작업에는 권한 상승이 필요합니다.
