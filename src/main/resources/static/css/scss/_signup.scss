@@ -1,0 +1,23 @@
+.signup-wrap {
+    margin: 0 auto;
+    padding: 30px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+
+    .divide {
+        margin: 25px 0;
+        width: 100%;
+        border-bottom: 1px solid $bk;
+    }
+
+    .form-item {
+        .address {
+            display: flex;
+            gap: 10px;
+            > input {
+                width: 100%;
+            }
+        }
+    }
+}

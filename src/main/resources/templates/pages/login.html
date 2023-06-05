@@ -12,7 +12,7 @@
     </head>
     <body>
         <header th:replace="~{/components/header.html}"></header>
-        <div class="login-wrap">
+        <div class="page login-wrap">
             <span class="title">Welcome!</span>
 
             <form class="form">
@@ -20,6 +20,7 @@
                 <input placeholder="비밀번호" name="password" type="password" />
                 <button id="btn-login" class="btn-secondary mid" type="button">로그인하기</button>
             </form>
+            <a href="/signup">회원가입</a>
         </div>
         <footer th:replace="~{/components/footer.html}"></footer>
 

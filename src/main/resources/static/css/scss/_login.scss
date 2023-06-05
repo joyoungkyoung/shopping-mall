@@ -4,26 +4,10 @@
     max-width: 600px;
     display: flex;
     flex-direction: column;
-    .title {
-        position: relative;
+
+    a {
+        margin-top: 20px;
         text-align: center;
-        font-size: 45px;
-        font-weight: 800;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.33;
-        letter-spacing: normal;
-        padding-bottom: 57px;
-        margin-bottom: 20px;
-        color: $secondary;
-        &::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            border-bottom: 1px solid $bk;
-        }
+        text-decoration: underline;
     }
 }

@@ -37,6 +37,7 @@ DROP TABLE IF EXISTS `shopping-mall`.`address`;
 
 CREATE TABLE `shopping-mall`.`address` (
     id int auto_increment NOT NULL,
+	user_id int NOT NULL COMMENT '유저 아이디',
     zip_code varchar(10) NOT NULL COMMENT '우편번호',
     address_main varchar(512) NOT NULL COMMENT '주소',
     address_sub varchar(512) NOT NULL COMMENT '상세주소',
@@ -45,4 +46,6 @@ CREATE TABLE `shopping-mall`.`address` (
 );
 
 ALTER TABLE `shopping-mall`.`user` ADD CONSTRAINT user_FK FOREIGN KEY (authority_code) REFERENCES `shopping-mall`.`authority`(code);
+
+ALTER TABLE `shopping-mall`.`address` ADD CONSTRAINT address_FK FOREIGN KEY (user_id) REFERENCES `shopping-mall`.`user`(id);
 

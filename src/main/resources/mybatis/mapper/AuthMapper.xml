@@ -10,10 +10,10 @@
     	where email = #{username} and status = 1
     </select>
 
-    <insert id="register" parameterType="HashMap">
+    <insert id="register" parameterType="RegisterDto" useGeneratedKeys="true" keyProperty="id">
         /* AuthMapper::register */
-        insert into user (type, email, nickname, password, authority_code, status, is_email_alert_confirm, create_date )
-        values (#{type}, #{email}, #{nickname}, #{password}, #{authorityCode}, #{status}, #{isEmailAlertConfirm}, now())
+        insert into user (type, email, nickname, password, authority_code, status, is_email_alert_confirm, phone, create_date )
+        values (#{type}, #{email}, #{nickname}, #{password}, #{authorityCode}, #{status}, #{isEmailAlertConfirm}, #{phone}, now())
     </insert>
 
     <update id="changeRefreshToken" parameterType="HashMap">

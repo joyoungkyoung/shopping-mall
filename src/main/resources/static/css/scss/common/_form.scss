@@ -7,4 +7,18 @@
         border: 1px solid $border;
         padding: 10px;
     }
+
+    .form-item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        > span {
+            font-weight: 700;
+        }
+    }
+    .form-check {
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
+    }
 }

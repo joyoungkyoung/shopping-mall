@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nicky.shoppingmall.config.Response;
 import com.nicky.shoppingmall.config.business.BusinessException;
@@ -19,9 +20,14 @@ import com.nicky.shoppingmall.config.jwt.JwtToken;
 import com.nicky.shoppingmall.config.jwt.JwtTokenProvider;
 import com.nicky.shoppingmall.config.util.RegexUtil;
 import com.nicky.shoppingmall.domain.auth.dto.RefreshTokenDto;
+import com.nicky.shoppingmall.domain.auth.dto.RegisterDto;
 import com.nicky.shoppingmall.domain.auth.dto.ReqCreateAccount;
 import com.nicky.shoppingmall.domain.auth.dto.ReqLogin;
 import com.nicky.shoppingmall.domain.auth.mapper.AuthMapper;
+import com.nicky.shoppingmall.domain.user.dto.AddNewAddressDto;
+import com.nicky.shoppingmall.domain.user.dto.ModifyAddressIdDto;
+import com.nicky.shoppingmall.domain.user.mapper.AddressMapper;
+import com.nicky.shoppingmall.domain.user.mapper.UserMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +36,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService{
     private final AuthMapper authMapper;
+    private final AddressMapper addressMapper;
+    private final UserMapper userMapper;
+
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Response create(ReqCreateAccount request) throws Exception {
         String invalidParameter = request.invalidBlank();
         if(invalidParameter != null) {
@@ -51,17 +61,33 @@ public class AuthServiceImpl implements AuthService{
             throw new BusinessException(ErrorInfo.ALREADY_EXIST_ACCOUNT);
         }
 
-        Map<String, Object> map = new HashMap<>();
+        // 유저정보 저장
+        RegisterDto registerDto = RegisterDto.builder()
+                                            .email(request.getEmail())
+                                            .nickname(request.getNickname())
+                                            .password(passwordEncoder.encode(request.getPassword()))
+                                            .type(1)
+                                            .authorityCode("STAFF")
+                                            .status(1)
+                                            .isEmailAlertConfirm(request.getIsEmailAlertConfirm())
+                                            .phone(request.getPhone().replaceAll("-", ""))
+                                            .build();
+        authMapper.register(registerDto);
 
-        map.put("email", request.getEmail());
-        map.put("nickname", request.getEmail());
-        map.put("password", passwordEncoder.encode(request.getPassword()));
-        map.put("type", 1);
-        map.put("authorityCode", "STAFF");
-        map.put("status", 1);
-        map.put("isEmailAlertConfirm", 1);
+        
+        // 주소지 저장
+        AddNewAddressDto addNewAddressDto = AddNewAddressDto.builder()
+                                                .userId(registerDto.getId())
+                                                .zipCode(request.getZipCode())
+                                                .addressMain(request.getAddressMain())
+                                                .addressSub(request.getAddressSub()).build();
+        addressMapper.addNewAddress(addNewAddressDto);
 
-        authMapper.register(map);
+        // 주소지 메인 적용
+        userMapper.modifyAddressId(ModifyAddressIdDto.builder()
+                                                    .id(registerDto.getId())
+                                                    .addressId(addNewAddressDto.getId())
+                                                    .build());
 
         return new Response();
     }

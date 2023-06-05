@@ -20,4 +20,9 @@ public class ViewController {
         return new ModelAndView("pages/login");
     }
 
+    @GetMapping("/signup")
+    private ModelAndView signup() {
+        return new ModelAndView("pages/signup");
+    }
+
 }

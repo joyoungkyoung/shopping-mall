@@ -164,6 +164,19 @@ a {
   border: 1px solid #CECECE;
   padding: 10px;
 }
+.form .form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form .form-item > span {
+  font-weight: 700;
+}
+.form .form-check {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
 
 [class*=btn-] {
   font-weight: 500;
@@ -274,6 +287,29 @@ a {
   display: none;
 }
 
+.page .title {
+  position: relative;
+  text-align: center;
+  font-size: 45px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  padding-bottom: 57px;
+  margin-bottom: 20px;
+  color: #255AD5;
+}
+.page .title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid #000;
+}
+
 .footer {
   display: flex;
   flex-direction: column;
@@ -350,27 +386,10 @@ a {
   display: flex;
   flex-direction: column;
 }
-.login-wrap .title {
-  position: relative;
+.login-wrap a {
+  margin-top: 20px;
   text-align: center;
-  font-size: 45px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.33;
-  letter-spacing: normal;
-  padding-bottom: 57px;
-  margin-bottom: 20px;
-  color: #255AD5;
-}
-.login-wrap .title::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  border-bottom: 1px solid #000;
+  text-decoration: underline;
 }
 
 .product-section {
@@ -382,4 +401,24 @@ a {
   -moz-column-gap: 18px;
        column-gap: 18px;
   row-gap: 70px;
+}
+
+.signup-wrap {
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+.signup-wrap .divide {
+  margin: 25px 0;
+  width: 100%;
+  border-bottom: 1px solid #000;
+}
+.signup-wrap .form-item .address {
+  display: flex;
+  gap: 10px;
+}
+.signup-wrap .form-item .address > input {
+  width: 100%;
 }
