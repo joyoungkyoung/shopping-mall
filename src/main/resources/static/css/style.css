@@ -3,25 +3,30 @@
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 300;
-  src: local("Montserrat Light"), url("scss/font/Montserrat/Montserrat-Light.woff2") format("woff2");
+  src: local("Montserrat Light"), url("/Montserrat/Montserrat-Light.woff2") format("woff2");
 }
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
-  src: local("Montserrat Regular"), url("scss/font/Montserrat/Montserrat-Regular.woff2") format("woff2");
+  src: local("Montserrat Regular"), url("scss/fonts/Montserrat/Montserrat-Regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
-  src: local("Montserrat Bold"), url("scss/font/Montserrat/Montserrat-Bold.woff2") format("woff2");
+  src: local("Montserrat Bold"), url("scss/fonts/Montserrat/Montserrat-Bold.woff2") format("woff2");
 }
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 800;
-  src: local("Montserrat ExtraBold"), url("scss/font/Montserrat/Montserrat-ExtraBold.woff2") format("woff2");
+  src: local("Montserrat ExtraBold"), url("scss/fonts/Montserrat/Montserrat-ExtraBold.woff2") format("woff2");
+}
+@font-face {
+  font-display: block;
+  font-family: "bootstrap-icons";
+  src: url("scss/fonts/bootstrap-icons.woff2") format("woff2");
 }
 /*--- base ---*/
 * {

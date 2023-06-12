@@ -25,4 +25,9 @@ public class ViewController {
         return new ModelAndView("pages/signup");
     }
 
+    @GetMapping("/admin/dashboard")
+    private ModelAndView adminDashboard() {
+        return new ModelAndView("pages/admin/dashboard");
+    }
+
 }
