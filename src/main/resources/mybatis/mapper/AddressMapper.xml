@@ -4,8 +4,8 @@
 
 <mapper namespace="com.nicky.shoppingmall.domain.user.mapper.AddressMapper">
 
-    <insert id="addNewAddress" parameterType="AddNewAddressDto" useGeneratedKeys="true" keyProperty="id">
-        /* AddressMapper::addNewAddress */
+    <insert id="createNewAddress" parameterType="CreateNewAddressDto" useGeneratedKeys="true" keyProperty="id">
+        /* AddressMapper::createNewAddress */
         insert into address (user_id, zip_code, address_main, address_sub, create_date )
         values (#{userId}, #{zipCode}, #{addressMain}, #{addressSub}, now())
     </insert>

@@ -3,7 +3,7 @@ package com.nicky.shoppingmall.domain.auth.dto;
 import lombok.Builder;
 
 @Builder
-public class RegisterDto {
+public class CreateUserDto {
     private int id; // useGeneratedKeys
     private String email;
     private String nickname;

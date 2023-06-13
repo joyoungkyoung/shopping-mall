@@ -3,7 +3,7 @@ package com.nicky.shoppingmall.domain.user.dto;
 import lombok.Builder;
 
 @Builder 
-public class AddNewAddressDto {
+public class CreateNewAddressDto {
     private int id; // useGeneratedKeys
     private int userId;
     private String zipCode;

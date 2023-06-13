@@ -20,11 +20,11 @@ import com.nicky.shoppingmall.config.jwt.JwtToken;
 import com.nicky.shoppingmall.config.jwt.JwtTokenProvider;
 import com.nicky.shoppingmall.config.util.RegexUtil;
 import com.nicky.shoppingmall.domain.auth.dto.RefreshTokenDto;
-import com.nicky.shoppingmall.domain.auth.dto.RegisterDto;
+import com.nicky.shoppingmall.domain.auth.dto.CreateUserDto;
 import com.nicky.shoppingmall.domain.auth.dto.ReqCreateAccount;
 import com.nicky.shoppingmall.domain.auth.dto.ReqLogin;
 import com.nicky.shoppingmall.domain.auth.mapper.AuthMapper;
-import com.nicky.shoppingmall.domain.user.dto.AddNewAddressDto;
+import com.nicky.shoppingmall.domain.user.dto.CreateNewAddressDto;
 import com.nicky.shoppingmall.domain.user.dto.ModifyAddressIdDto;
 import com.nicky.shoppingmall.domain.user.mapper.AddressMapper;
 import com.nicky.shoppingmall.domain.user.mapper.UserMapper;
@@ -62,7 +62,7 @@ public class AuthServiceImpl implements AuthService{
         }
 
         // 유저정보 저장
-        RegisterDto registerDto = RegisterDto.builder()
+        CreateUserDto registerDto = CreateUserDto.builder()
                                             .email(request.getEmail())
                                             .nickname(request.getNickname())
                                             .password(passwordEncoder.encode(request.getPassword()))
@@ -72,16 +72,16 @@ public class AuthServiceImpl implements AuthService{
                                             .isEmailAlertConfirm(request.getIsEmailAlertConfirm())
                                             .phone(request.getPhone().replaceAll("-", ""))
                                             .build();
-        authMapper.register(registerDto);
+        authMapper.createUser(registerDto);
 
         
         // 주소지 저장
-        AddNewAddressDto addNewAddressDto = AddNewAddressDto.builder()
+        CreateNewAddressDto addNewAddressDto = CreateNewAddressDto.builder()
                                                 .userId(registerDto.getId())
                                                 .zipCode(request.getZipCode())
                                                 .addressMain(request.getAddressMain())
                                                 .addressSub(request.getAddressSub()).build();
-        addressMapper.addNewAddress(addNewAddressDto);
+        addressMapper.createNewAddress(addNewAddressDto);
 
         // 주소지 메인 적용
         userMapper.modifyAddressId(ModifyAddressIdDto.builder()
@@ -116,7 +116,7 @@ public class AuthServiceImpl implements AuthService{
             req.put("email", request.getEmail());
             req.put("refreshToken", token.getRefreshToken());
 
-            authMapper.changeRefreshToken(req);
+            authMapper.modifyRefreshToken(req);
 
             Response response = new Response();
             Map<String, Object> mapData = new HashMap<>();
@@ -152,7 +152,7 @@ public class AuthServiceImpl implements AuthService{
             Map<String, Object> req = new HashMap<>();
             req.put("email", dto.getEmail());
             req.put("refreshToken", newToken.getRefreshToken());
-            authMapper.changeRefreshToken(req);
+            authMapper.modifyRefreshToken(req);
 
             Response response = new Response();
             Map<String, Object> mapData = new HashMap<>();

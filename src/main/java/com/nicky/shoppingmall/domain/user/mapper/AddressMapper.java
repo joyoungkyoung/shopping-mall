@@ -2,12 +2,12 @@ package com.nicky.shoppingmall.domain.user.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.nicky.shoppingmall.domain.user.dto.AddNewAddressDto;
+import com.nicky.shoppingmall.domain.user.dto.CreateNewAddressDto;
 
 /**
- * prefix : get, add, register, remove, modify, change
+ * prefix : get, create, remove, modify, change
  */
 @Mapper
 public interface AddressMapper {
-    public void addNewAddress(AddNewAddressDto dto);
+    public void createNewAddress(CreateNewAddressDto dto);
 }

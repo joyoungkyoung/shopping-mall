@@ -10,14 +10,14 @@
     	where email = #{username} and status = 1
     </select>
 
-    <insert id="register" parameterType="RegisterDto" useGeneratedKeys="true" keyProperty="id">
-        /* AuthMapper::register */
+    <insert id="createUser" parameterType="CreateUserDto" useGeneratedKeys="true" keyProperty="id">
+        /* AuthMapper::createUser */
         insert into user (type, email, nickname, password, authority_code, status, is_email_alert_confirm, phone, create_date )
         values (#{type}, #{email}, #{nickname}, #{password}, #{authorityCode}, #{status}, #{isEmailAlertConfirm}, #{phone}, now())
     </insert>
 
-    <update id="changeRefreshToken" parameterType="HashMap">
-        /* AuthMapper::changeRefreshToken */
+    <update id="modifyRefreshToken" parameterType="HashMap">
+        /* AuthMapper::modifyRefreshToken */
         update `user` 
         set refresh_token=#{refreshToken}
         where email=#{email} and status=true

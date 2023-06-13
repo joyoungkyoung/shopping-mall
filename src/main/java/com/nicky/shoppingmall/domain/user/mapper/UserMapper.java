@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.nicky.shoppingmall.domain.user.dto.ModifyAddressIdDto;
 
 /**
- * prefix : get, add, register, remove, modify, change
+ * prefix : get, create, remove, modify, change
  */
 @Mapper
 public interface UserMapper {
