@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nicky.shoppingmall.domain.adminMng.mapper.AdminUserMapper">
+    
+    <select id="getCreatableCode" parameterType="String" resultType="String">
+        /* AdminUserMapper::getCreatableCode */
+        select creatable_code from authority where code=#{code}
+    </select>
+
+    <insert id="createAdmin" parameterType="CreateAdminDto" useGeneratedKeys="true" keyProperty="id">
+        /* AdminUserMapper::createAdmin */
+        insert into admin (username, `password`, nickname, authority_code, create_date) 
+        values (#{username}, #{password}, #{nickname}, #{authorityCode}, now())
+    </insert>
+
+    <select id="isExistUsername" parameterType="String" resultType="Boolean">
+        /* AdminUserMapper::isExistUsername */
+        select if(count(id) <![CDATA[>]]> 0, true, false) from admin where username=#{username}
+    </select>
+
+</mapper>
