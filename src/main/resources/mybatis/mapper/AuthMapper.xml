@@ -25,7 +25,7 @@
 
     <select id="getByRefreshToken" parameterType="String" resultType="RefreshTokenDto">
         /* AuthMapper::getByRefreshToken */
-        select email
+        select email as username
     	from `user`
     	where refresh_token=#{refreshToken}
     </select>

@@ -22,91 +22,106 @@
     <!-- Heading -->
     <div class="sidebar-heading">Interface</div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a
-            class="nav-link collapsed"
-            href="#collapseTwo"
-            role="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseTwo"
-            aria-expanded="false"
-            aria-controls="collapseTwo"
-        >
-            <i class="bi bi-gear-fill"></i>
-            <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" data-bs-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
-            </div>
-        </div>
-    </li>
-
-    <!-- Nav Item - Utilities Collapse Menu -->
+    <!-- Nav Item - Product Collapse Menu -->
     <li class="nav-item">
         <a
             class="nav-link collapsed"
             href="#"
+            role="button"
             data-bs-toggle="collapse"
-            data-bs-target="#collapseUtilities"
-            aria-expanded="true"
-            aria-controls="collapseUtilities"
+            data-bs-target="#collapseProduct"
+            aria-expanded="false"
+            aria-controls="collapseProduct"
         >
-            <i class="bi bi-tools"></i>
-            <span>Utilities</span>
+            <i class="bi bi-gear-fill"></i>
+            <span>상품 관리</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+        <div id="collapseProduct" class="collapse" data-bs-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
+                <a class="collapse-item" href="/admin/product/category">카테고리 관리</a>
+                <a class="collapse-item" href="/admin/product/list">상품 관리</a>
+                <a class="collapse-item" href="/admin/product/review">상품 리뷰 관리</a>
+                <a class="collapse-item" href="/admin/product/qna">상품 Q&A 관리</a>
             </div>
         </div>
+    </li>
+
+    <!-- Nav Item - Order Collapse Menu -->
+    <li class="nav-item">
+        <a
+            class="nav-link collapsed"
+            href="#"
+            role="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOrder"
+            aria-expanded="false"
+            aria-controls="collapseOrder"
+        >
+            <i class="bi bi-gear-fill"></i>
+            <span>주문 관리</span>
+        </a>
+        <div id="collapseOrder" class="collapse" data-bs-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/admin/order/list">주문 관리</a>
+                <a class="collapse-item" href="/admin/order/cancel">취소 관리</a>
+                <a class="collapse-item" href="/admin/order/return">반품 관리</a>
+                <a class="collapse-item" href="/admin/order/exchange">교환 관리</a>
+                <a class="collapse-item" href="/admin/order/policy">배송 정책 관리</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Statistics -->
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/statistics">
+            <i class="bi bi-folder-fill"></i>
+            <span>통계 관리</span></a
+        >
+    </li>
+
+    <!-- Nav Item - Manage Collapse Menu -->
+    <li class="nav-item">
+        <a
+            class="nav-link collapsed"
+            href="#"
+            role="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseManage"
+            aria-expanded="false"
+            aria-controls="collapseManage"
+        >
+            <i class="bi bi-gear-fill"></i>
+            <span>운영 관리</span>
+        </a>
+        <div id="collapseManage" class="collapse" data-bs-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/admin/notice">공지사항 관리</a>
+                <a class="collapse-item" href="/admin/coupon">쿠폰 관리</a>
+                <a class="collapse-item" href="/admin/coupon-log">쿠폰 로그</a>
+                <a class="collapse-item" href="/admin/point">마일리지 로그</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - User Account -->
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/user">
+            <i class="bi bi-folder-fill"></i>
+            <span>회원 관리</span></a
+        >
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider" />
 
     <!-- Heading -->
-    <div class="sidebar-heading">Addons</div>
+    <div class="sidebar-heading">System</div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Nav Item - Admin Account -->
     <li class="nav-item">
-        <a
-            class="nav-link collapsed"
-            href="#"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapsePages"
-            aria-expanded="true"
-            aria-controls="collapsePages"
-        >
+        <a class="nav-link" href="/admin/mng">
             <i class="bi bi-folder-fill"></i>
-            <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
-            </div>
-        </div>
-    </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="bi bi-bar-chart-steps"></i>
-            <span>Charts</span></a
+            <span>관리자 관리</span></a
         >
     </li>
 
