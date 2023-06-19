@@ -3,9 +3,10 @@ package com.nicky.shoppingmall.domain.auth.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +41,8 @@ public class AuthServiceImpl implements AuthService{
     private final UserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    @Qualifier("userAuthenticationProvider")
+    private final AuthenticationProvider provider;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
@@ -107,7 +109,7 @@ public class AuthServiceImpl implements AuthService{
 
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
-            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+            Authentication authentication = provider.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             
             JwtToken token = jwtTokenProvider.generateToken(authentication);

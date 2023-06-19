@@ -78,7 +78,7 @@ public class ExceptionHelper {
     
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleAll(Exception ex) {
-        //log.trace(ex.getCause().getMessage(), ex);
+        log.info(ex.getCause().getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(ErrorInfo.SYSTEM_ERROR));
     }
 }

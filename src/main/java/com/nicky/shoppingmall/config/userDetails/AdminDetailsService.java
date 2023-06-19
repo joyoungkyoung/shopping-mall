@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.nicky.shoppingmall.domain.auth.mapper.AuthMapper;
+import com.nicky.shoppingmall.domain.auth.mapper.AdminAuthMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MyUserDetailsService implements UserDetailsService {
-    private final AuthMapper authMapper;
-
+public class AdminDetailsService implements UserDetailsService {
+    private final AdminAuthMapper adminAuthMapper;
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails user = authMapper.getUserDetails(username);
+        UserDetails user = adminAuthMapper.getUserDetails(username);
         
         if(user == null) {
             log.info("데이터 없음");

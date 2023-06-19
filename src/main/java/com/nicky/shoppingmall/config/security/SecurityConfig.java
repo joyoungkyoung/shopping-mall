@@ -2,6 +2,7 @@ package com.nicky.shoppingmall.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -12,6 +13,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.nicky.shoppingmall.config.jwt.JwtAuthenticationFilter;
 import com.nicky.shoppingmall.config.jwt.JwtTokenProvider;
+import com.nicky.shoppingmall.config.userDetails.AdminDetailsService;
+import com.nicky.shoppingmall.config.userDetails.MyUserDetailsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,10 +26,31 @@ public class SecurityConfig {
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final JwtTokenProvider jwtTokenProvider;
+    
+    private final MyUserDetailsService myUserDetailsService;
+    private final AdminDetailsService adminDetailsService;
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public DaoAuthenticationProvider userAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(myUserDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        
+        return provider;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider adminAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(adminDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        
+        return provider;
     }
 
     @Bean
@@ -45,10 +69,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
                 .requestMatchers("/api/v1/auth/**", "/login", "/", "/signup").permitAll()
-                .requestMatchers("/admin/**").permitAll()
-                .requestMatchers("/test3").authenticated()
-                .requestMatchers("/test").hasAuthority("ROLE_STAFF")
-                .requestMatchers("/test2").hasAuthority("ROLE_OWNER")
+                .requestMatchers("/admin", "/admin/**", "/api/v1/admin/auth/**").permitAll()
+                .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ROLE_STAFF", "ROLE_VIEWER", "ROLE_OWNER")
                 .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요
             )
             // UsernamePasswordAuthenticationFilter 처리 전에, JwtAuthenticationFilter 를 거침
