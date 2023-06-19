@@ -13,6 +13,9 @@ public enum ErrorInfo {
     INVALID_TOKEN                                   (10004, "토큰이 유효하지 않습니다."),
     // User
     NOT_FOUND_USER_DATA                             (20000, "유저 정보를 찾지 못했습니다."),
+    // Admin Mng
+    REQUIRE_ELEVATION_OF_PRIVILEGE                  (30000, "권한 상승이 필요합니다."),
+    DUPLICATE_USERNAME                              (30001, "아이디가 중복됩니다."),
     // Image
     INVALID_IMAGE_FORMAT                            (80000, "이미지가 아닌 파일이 존재합니다."),
     IMAGE_NOT_EXIST                                 (80001, "이미지가 없습니다."),
