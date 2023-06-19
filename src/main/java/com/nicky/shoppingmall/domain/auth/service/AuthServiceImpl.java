@@ -147,13 +147,13 @@ public class AuthServiceImpl implements AuthService{
 
             Authentication authentication = jwtTokenProvider.getAuthentication(accessToken); 
 
-            if(!dto.getEmail().equals(authentication.getName())){
+            if(!dto.getUsername().equals(authentication.getName())){
                 throw new BusinessException(ErrorInfo.INVALID_TOKEN);
             }
             JwtToken newToken = jwtTokenProvider.generateToken(authentication);
 
             Map<String, Object> req = new HashMap<>();
-            req.put("email", dto.getEmail());
+            req.put("email", dto.getUsername());
             req.put("refreshToken", newToken.getRefreshToken());
             authMapper.changeRefreshToken(req);
 

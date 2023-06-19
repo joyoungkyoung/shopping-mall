@@ -4,21 +4,19 @@
 
 <mapper namespace="com.nicky.shoppingmall.domain.auth.mapper.AdminAuthMapper">
     <select id="getUserDetails" parameterType="String" resultType="MyUserDetails">
-        /* AuthMapper::getUserDetails */
+        /* AdminAuthMapper::getUserDetails */
         select username, password, authority_code
     	from admin
     	where username = #{username}
     </select>
 
     <update id="changeRefreshToken" parameterType="ChangeRefreshTokenDto">
-        /* AuthMapper::changeRefreshToken */
+        /* AdminAuthMapper::changeRefreshToken */
         update admin set refresh_token=#{refreshToken} where username=#{username}
     </update>
 
     <select id="getByRefreshToken" parameterType="String" resultType="RefreshTokenDto">
-        /* AuthMapper::getByRefreshToken */
-        select email
-    	from `user`
-    	where refresh_token=#{refreshToken}
+        /* AdminAuthMapper::getByRefreshToken */
+        select username from admin where refresh_token=#{refreshToken}
     </select>
 </mapper>
