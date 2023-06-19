@@ -14,6 +14,13 @@ spring:
     thymeleaf:
         check-template-location: true
         cache: false # 개발 시에는 false로 두는게 좋음
+    servlet:
+        multipart:
+            maxFileSize: 10MB
+            maxRequestSize: 20MB
+            location: D://spring/temp-files
+
+file-path: D://spring/upload
 
 # mybatis
 mybatis:

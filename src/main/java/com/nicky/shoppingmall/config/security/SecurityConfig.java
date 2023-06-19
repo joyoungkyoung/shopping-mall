@@ -45,6 +45,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
                 .requestMatchers("/api/v1/auth/**", "/login", "/", "/signup").permitAll()
+                .requestMatchers("/api/v1/image/**").permitAll()
+                .requestMatchers("/api/v1/image/product").authenticated()
                 .requestMatchers("/admin/**").permitAll()
                 .requestMatchers("/test3").authenticated()
                 .requestMatchers("/test").hasAuthority("ROLE_STAFF")

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nicky.shoppingmall.domain.image.mapper.ImageMapper">
+
+    <insert id="createImageList" parameterType="List" useGeneratedKeys="true" keyProperty="id">
+        /* ImageMapper::createImageList */
+        insert into image (`url`, `name`, create_date) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.url}, #{item.name}, now())
+        </foreach>
+    </insert>
+
+    <select id="getImage" parameterType="Integer" resultType="ImageDto">
+        /* ImageMapper::getImage */
+        select id, url, name from image where id=#{id}
+    </select>
+</mapper>
