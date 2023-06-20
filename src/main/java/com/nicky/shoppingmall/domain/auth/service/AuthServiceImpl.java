@@ -22,8 +22,7 @@ import com.nicky.shoppingmall.config.jwt.JwtTokenProvider;
 import com.nicky.shoppingmall.config.util.RegexUtil;
 import com.nicky.shoppingmall.domain.auth.dto.RefreshTokenDto;
 import com.nicky.shoppingmall.domain.auth.dto.CreateUserDto;
-import com.nicky.shoppingmall.domain.auth.dto.ReqCreateAccount;
-import com.nicky.shoppingmall.domain.auth.dto.ReqLogin;
+import com.nicky.shoppingmall.domain.auth.dto.LoginDto;
 import com.nicky.shoppingmall.domain.auth.mapper.AuthMapper;
 import com.nicky.shoppingmall.domain.user.dto.CreateNewAddressDto;
 import com.nicky.shoppingmall.domain.user.dto.ModifyAddressIdDto;
@@ -47,7 +46,7 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Response create(ReqCreateAccount request) throws Exception {
+    public Response create(CreateUserDto.Request request) throws Exception {
         String invalidParameter = request.invalidBlank();
         if(invalidParameter != null) {
             throw new BusinessException(ErrorInfo.INCLUDE_BLANK_PARAMETER.getCode(), ErrorInfo.INCLUDE_BLANK_PARAMETER.replaceMessage(invalidParameter));
@@ -95,7 +94,7 @@ public class AuthServiceImpl implements AuthService{
     }
 
     @Override
-    public Response login(ReqLogin request) throws Exception {
+    public Response login(LoginDto.Request request) throws Exception {
         String invalidParameter = request.invalidBlank();
         if(invalidParameter != null) {
             throw new BusinessException(ErrorInfo.INCLUDE_BLANK_PARAMETER.getCode(), ErrorInfo.INCLUDE_BLANK_PARAMETER.replaceMessage(invalidParameter));
@@ -119,15 +118,8 @@ public class AuthServiceImpl implements AuthService{
             req.put("refreshToken", token.getRefreshToken());
 
             authMapper.modifyRefreshToken(req);
-
-            Response response = new Response();
-            Map<String, Object> mapData = new HashMap<>();
-            mapData.put("accessToken", token.getAccessToken());
-            mapData.put("refreshToken", token.getRefreshToken());
-
-            response.setData(mapData);
     
-            return response;
+            return new Response(new LoginDto.Response(token.getAccessToken(), token.getRefreshToken()));
         } catch(BadCredentialsException e) {
             throw new BusinessException(ErrorInfo.WRONG_USERNAME_OR_PASSWORD);
         }  
@@ -155,15 +147,8 @@ public class AuthServiceImpl implements AuthService{
             req.put("email", dto.getUsername());
             req.put("refreshToken", newToken.getRefreshToken());
             authMapper.modifyRefreshToken(req);
-
-            Response response = new Response();
-            Map<String, Object> mapData = new HashMap<>();
-            mapData.put("accessToken", newToken.getAccessToken());
-            mapData.put("refreshToken", newToken.getRefreshToken());
-
-            response.setData(mapData);
     
-            return response;
+            return new Response(new LoginDto.Response(newToken.getAccessToken(), newToken.getRefreshToken()));
         }else {
             throw new BusinessException(ErrorInfo.INVALID_TOKEN);
         }

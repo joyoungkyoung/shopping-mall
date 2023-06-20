@@ -17,8 +17,6 @@ import com.nicky.shoppingmall.config.error.ErrorInfo;
 import com.nicky.shoppingmall.config.jwt.JwtToken;
 import com.nicky.shoppingmall.config.jwt.JwtTokenProvider;
 import com.nicky.shoppingmall.config.util.RegexUtil;
-import com.nicky.shoppingmall.domain.auth.dto.ReqCreateAccount;
-import com.nicky.shoppingmall.domain.auth.dto.ReqLogin;
 import com.nicky.shoppingmall.domain.user.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;

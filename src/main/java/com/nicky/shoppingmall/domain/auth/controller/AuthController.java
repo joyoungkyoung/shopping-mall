@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nicky.shoppingmall.config.Constant;
 import com.nicky.shoppingmall.config.Response;
-import com.nicky.shoppingmall.domain.auth.dto.ReqCreateAccount;
-import com.nicky.shoppingmall.domain.auth.dto.ReqLogin;
+import com.nicky.shoppingmall.domain.auth.dto.CreateUserDto;
+import com.nicky.shoppingmall.domain.auth.dto.LoginDto;
 import com.nicky.shoppingmall.domain.auth.service.AuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,12 +21,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(Constant.API_VER1 + "/auth/signup")
-    public Response signup(@RequestBody @Valid ReqCreateAccount request) throws Exception {
+    public Response signup(@RequestBody @Valid CreateUserDto.Request request) throws Exception {
         return authService.create(request);
     }
 
     @PostMapping(Constant.API_VER1 + "/auth/login")
-    public Response login(@RequestBody @Valid ReqLogin request) throws Exception {
+    public Response login(@RequestBody @Valid LoginDto.Request request) throws Exception {
         return authService.login(request);
     }
 

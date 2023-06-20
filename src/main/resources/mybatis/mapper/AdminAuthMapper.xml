@@ -10,7 +10,7 @@
     	where username = #{username}
     </select>
 
-    <update id="changeRefreshToken" parameterType="ChangeRefreshTokenDto">
+    <update id="changeRefreshToken" parameterType="com.nicky.shoppingmall.domain.auth.dto.RefreshTokenDto$Change">
         /* AdminAuthMapper::changeRefreshToken */
         update admin set refresh_token=#{refreshToken} where username=#{username}
     </update>

@@ -7,4 +7,14 @@ import lombok.Setter;
 @Setter
 public class RefreshTokenDto {
     private String username;
+
+    public static class Change {
+        private String username;
+        private String refreshToken;
+
+        public Change(String username, String refreshToken) {
+            this.username = username;
+            this.refreshToken = refreshToken;
+        }
+    }
 }

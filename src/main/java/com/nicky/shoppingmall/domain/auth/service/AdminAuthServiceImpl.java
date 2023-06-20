@@ -13,10 +13,8 @@ import com.nicky.shoppingmall.config.business.BusinessException;
 import com.nicky.shoppingmall.config.error.ErrorInfo;
 import com.nicky.shoppingmall.config.jwt.JwtToken;
 import com.nicky.shoppingmall.config.jwt.JwtTokenProvider;
-import com.nicky.shoppingmall.domain.auth.dto.ChangeRefreshTokenDto;
+import com.nicky.shoppingmall.domain.auth.dto.AdminLoginDto;
 import com.nicky.shoppingmall.domain.auth.dto.RefreshTokenDto;
-import com.nicky.shoppingmall.domain.auth.dto.ReqAdminLogin;
-import com.nicky.shoppingmall.domain.auth.dto.ResLogin;
 import com.nicky.shoppingmall.domain.auth.mapper.AdminAuthMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +30,7 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public Response login(ReqAdminLogin request) throws Exception {
+    public Response login(AdminLoginDto.Request request) throws Exception {
         String invalidParameter = request.invalidBlank();
         if(invalidParameter != null) {
             throw new BusinessException(ErrorInfo.INCLUDE_BLANK_PARAMETER.getCode(), ErrorInfo.INCLUDE_BLANK_PARAMETER.replaceMessage(invalidParameter));
@@ -44,9 +42,9 @@ public class AdminAuthServiceImpl implements AdminAuthService {
             
             JwtToken token = jwtTokenProvider.generateToken(authentication);
     
-            adminAuthMapper.changeRefreshToken(new ChangeRefreshTokenDto(request.getUsername(), token.getRefreshToken()));
+            adminAuthMapper.changeRefreshToken(new RefreshTokenDto.Change(request.getUsername(), token.getRefreshToken()));
     
-            return new Response(new ResLogin(token.getAccessToken(), token.getRefreshToken()));
+            return new Response(new AdminLoginDto.Response(token.getAccessToken(), token.getRefreshToken()));
         } catch(BadCredentialsException e) {
             throw new BusinessException(ErrorInfo.WRONG_USERNAME_OR_PASSWORD);
         }  
@@ -70,9 +68,9 @@ public class AdminAuthServiceImpl implements AdminAuthService {
             }
             JwtToken newToken = jwtTokenProvider.generateToken(authentication);
 
-            adminAuthMapper.changeRefreshToken(new ChangeRefreshTokenDto(dto.getUsername(), newToken.getRefreshToken()));
+            adminAuthMapper.changeRefreshToken(new RefreshTokenDto.Change(dto.getUsername(), newToken.getRefreshToken()));
 
-            return new Response(new ResLogin(newToken.getAccessToken(), newToken.getRefreshToken()));
+            return new Response(new AdminLoginDto.Response(newToken.getAccessToken(), newToken.getRefreshToken()));
         }else {
             throw new BusinessException(ErrorInfo.INVALID_TOKEN);
         }
