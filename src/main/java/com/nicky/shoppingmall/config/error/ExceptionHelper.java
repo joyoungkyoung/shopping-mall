@@ -2,6 +2,7 @@ package com.nicky.shoppingmall.config.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -71,14 +72,14 @@ public class ExceptionHelper {
         return ResponseEntity.badRequest().body(new Response(ex.getCode(),ex.getMessage()));
     }
 
-    // @ExceptionHandler({ AccessDeniedException.class })
-    // public ResponseEntity<Object> handleAccessDenied (AccessDeniedException ex) {
-    //     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response(ErrorInfo.ACCESS_DENIED.getCode(), ex.getMessage()));
-    // }
+    @ExceptionHandler({ AccessDeniedException.class })
+    public ResponseEntity<Object> handleAccessDenied (AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response(ErrorInfo.ACCESS_DENIED.getCode(), ex.getMessage()));
+    }
     
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleAll(Exception ex) {
-        log.info(ex.getCause().getMessage(), ex);
+        // log.info(ex.getCause().getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(ErrorInfo.SYSTEM_ERROR));
     }
 }

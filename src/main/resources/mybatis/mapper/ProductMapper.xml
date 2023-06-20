@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nicky.shoppingmall.domain.product.mapper.ProductMapper">
+    <select id="getProductList" parameterType="GetProductDto" resultType="ResGetProduct">
+        /* ProductMapper::getProductList */
+        select 
+            p.id, p.name, p.description, 
+            p.thumb_image_id,
+            if(locate('/image', i.url) = 1, concat(#{imageHost}, p.thumb_image_id), i.url) as thumb_image_url,
+            count(f.id) as favorite_cnt,
+            p.consumer_price, p.product_price, p.is_show, p.stock, 
+            p.create_date, p.update_date, p.delete_date
+        from product p
+        inner join image i on i.id = p.thumb_image_id
+        left join favorite f on f.product_id = p.id
+        where is_show = true and delete_date is null
+        group by p.id
+    </select>
+
+    <select id="getProduct" parameterType="GetProductDto" resultType="ProductDto">
+        /* ProductMapper::getProduct */
+        select 
+            p.id, p.name, p.description, 
+            if(locate('/image', i.url) = 1, concat(#{imageHost}, p.main_image_id), i.url) as main_image_url,
+            p.consumer_price, p.product_price, p.is_show, p.stock,
+            p.create_date, p.update_date, p.delete_date
+        from product p
+        inner join image i on i.id = p.main_image_id
+        where p.id = #{productId}
+    </select>
+
+    <select id="getProductImageList" parameterType="GetProductDto" resultType="ProductImageDto">
+        /* ProductMapper::getProductImage */
+        select 
+            pi2.id, pi2.image_id,
+            if(locate('/image', i.url) = 1, concat(#{imageHost}, pi2.image_id), i.url) as url, 
+            pi2.is_main, pi2.`order`
+        from product_image pi2
+        inner join image i on i.id = pi2.image_id 
+        where product_id = #{productId}
+    </select>
+
+    <select id="getProductMetadataList" parameterType="Integer" resultType="ProductMetadataDto">
+        /* ProductMapper::getProductMetadata */
+        select *
+        from product_metadata pm 
+        where product_id = #{productId}
+    </select>
+    
+    <select id="getProductOptionList" parameterType="Integer" resultType="ProductOptionDto">
+        /* ProductMapper::getProductOption */
+        select *
+        from product_option po 
+        where product_id = #{productId}
+    </select>
+    
+    <select id="isEnableProcess" parameterType="Integer" resultType="Boolean">
+        /* ProductMapper::isEnableProcess */
+        select if(is_show = true, false, true) from product where id=#{productId}
+    </select>
+
+    <insert id="createProduct" parameterType="CreateProductDto" useGeneratedKeys="true" keyProperty="id">
+        /* ProductMapper::createProduct */
+        insert into product (
+            category_id, discount_id, name, description, 
+            main_image_id, thumb_image_id,
+            supply_price, consumer_price, product_price, 
+            tax, margin, tag, stock, is_show, create_date
+        )
+        values (
+            #{categoryId}, #{discountId}, #{name}, #{description}, 
+            null, null,
+            #{supplyPrice}, #{consumerPrice}, #{productPrice}, 
+            #{tax}, #{margin}, #{tag}, #{stock}, false, now()
+        )
+    </insert>
+    
+    <insert id="createMetadataList" parameterType="List">
+        /* ProductMapper::createMetadataList */
+        insert into product_metadata (product_id, field_name, field_value, create_date) values 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.productId}, #{item.fieldName}, #{item.fieldValue}, now())
+        </foreach>
+    </insert>
+    
+    <insert id="createOptionList" parameterType="List">
+        /* ProductMapper::createOptionList */
+        insert into product_option (product_id, opt_name, opt_value, create_date) values 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.productId}, #{item.optName}, #{item.optValue}, now())
+        </foreach>
+    </insert>
+    
+    <update id="modifyProductImage" parameterType="ModifyProductImageDto">
+        /* ProductMapper::modifyProductImage */
+        update product set main_image_id=#{mainImageId}, thumb_image_id=#{thumbImageId} where id=#{productId}
+    </update>
+    
+    <delete id="removeProductSubImageList" parameterType="Integer">
+        /* ProductMapper::removeProductSubImageList */
+        delete from product_image where product_id=#{productId}
+    </delete>
+    
+    <insert id="addProductSubImageList" parameterType="List">
+        /* ProductMapper::addProductSubImageList */
+        insert into product_image (product_id, image_id, is_main, `order`, create_date) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.productId}, #{item.imageId}, #{item.isMain}, #{item.order}, now())
+        </foreach>
+    </insert>
+    
+    <update id="enableProduct" parameterType="Integer">
+        /* ProductMapper::enableProduct */
+        update product set is_show=true where id=#{productId}
+    </update>
+
+    <update id="removeProductList" parameterType="List">
+        /* ProductMapper::removeProductList */
+        update product set delete_date = now() 
+        where id in <foreach collection="list" item="id" open="(" close=")" separator="," >#{id}</foreach>
+    </update>
+    
+</mapper>

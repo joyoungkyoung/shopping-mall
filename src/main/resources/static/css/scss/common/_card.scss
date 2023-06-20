@@ -5,10 +5,16 @@
     > img {
         width: 100%;
         height: fit-content;
+        &:hover {
+            cursor: pointer;
+        }
     }
     .card-title {
         line-height: 35px;
         font-weight: 700;
+        &:hover {
+            cursor: pointer;
+        }
     }
     .card-detail {
         display: flex;

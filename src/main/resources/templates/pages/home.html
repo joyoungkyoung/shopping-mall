@@ -11,30 +11,13 @@
     </head>
     <body>
         <header th:replace="~{/components/header.html}"></header>
-        <div class="product-section">
-            <div class="card">
-                <img th:src="@{/image/sample/img-01@3x.png}" alt="thumbnail" />
-                <span class="card-title">[What happen] How to create</span>
-                <div class="card-detail">
-                    <span class="price">2,500 won</span>
-                    <span class="like">236</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <img th:src="@{/image/sample/img-01@3x.png}" alt="thumbnail" />
-                <span class="card-title">[What happen] How to create</span>
-                <div class="card-detail">
-                    <span class="price">2,500 won</span>
-                    <span class="like">236</span>
-                </div>
-            </div>
-        </div>
+        <div id="product-section" class="product-section"></div>
         <footer th:replace="~{/components/footer.html}"></footer>
 
         <script>
+            const accessToken = getCookie("accessToken");
+
             $(document).ready(() => {
-                const accessToken = getCookie("accessToken");
                 if (accessToken) {
                     $("#lnb-login").addClass("hide");
                     $("#lnb-logout").removeClass("hide");
@@ -46,7 +29,46 @@
 
                     location.reload();
                 });
+
+                getProductList();
             });
+
+            function handleClickCard() {
+                console.log("asdasdas");
+            }
+
+            function getProductList() {
+                $.ajax({
+                    url: "http://localhost:8080/api/v1/product",
+                    data: null,
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                    method: "get",
+                    contentType: "application/json",
+                })
+                    .done((json) => {
+                        console.log(json);
+                        if (json.code === 200) {
+                            const productSection = $("#product-section");
+                            json.data?.map((item) => {
+                                productSection.append(`
+                                    <div class="card">
+                                        <img src="${item.thumbImageUrl}" alt="thumbnail" onclick="javascript:handleClickCard(${item.id})" />
+                                        <span class="card-title" onclick="handleClickCard(${item.id})">${item.name}</span>
+                                        <div class="card-detail">
+                                            <span class="price">${item.productPrice} won</span>
+                                            <span class="like">${item.favoriteCnt}</span>
+                                        </div>
+                                    </div>`);
+                            });
+                        }
+                    })
+                    .fail((e) => {
+                        console.error(e);
+                        if (e.status === 400) {
+                            alert(e.responseJSON.message);
+                        }
+                    });
+            }
         </script>
     </body>
 </html>

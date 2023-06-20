@@ -16,12 +16,20 @@ public enum ErrorInfo {
     // Admin Mng
     REQUIRE_ELEVATION_OF_PRIVILEGE                  (30000, "권한 상승이 필요합니다."),
     DUPLICATE_USERNAME                              (30001, "아이디가 중복됩니다."),
+    // Product
+    INVALID_PRODUCT_META                            (40000, "상품 메타데이터가 없습니다."),
+    INVALID_PRODUCT_OPT                             (40001, "상품 옵션이 없습니다."),
+    INVALID_PRODUCT_COMPLETE                        (40002, "상품 등록 완료 처리가 유효하지 않습니다.(이미 완료된 상품)"),
+    INVALID_PRODUCT_SUB_IMAGE                       (40003, "상품 서브이미지가 없습니다."),
+    INVALID_PRODUCT_ID                              (40004, "상품 아이디가 유효하지 않습니다."),
+    PRODUCT_NOT_FOUND                               (40005, "상품을 찾을 수 없습니다."),
     // Image
     INVALID_IMAGE_FORMAT                            (80000, "이미지가 아닌 파일이 존재합니다."),
     IMAGE_NOT_EXIST                                 (80001, "이미지가 없습니다."),
     // Common
     INCLUDE_BLANK_PARAMETER                         (90000, "Some strings contain spaces before and after them : {0}"), // 일부 문자열의 앞,뒤에 공백이 포함되어있습니다 : {0}
     ELEVATION_REQUIRED                              (90001, "The requested operation requires elevation."), // 요청된 작업에는 권한 상승이 필요합니다.
+    INVALID_LIST_ZERO                               (90002, "리스트의 갯수가 0개가 될 수 없습니다.")        
     ;
     
     private final int code;

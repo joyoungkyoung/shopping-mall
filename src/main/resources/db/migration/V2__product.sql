@@ -55,11 +55,11 @@ CREATE TABLE `shopping-mall`.`discount` (
 CREATE TABLE `shopping-mall`.`product` (
 	id int auto_increment NOT NULL,
 	category_id int NOT NULL,
-	discount_id	int NOT NULL,
+	discount_id	int NULL,
 	`name` varchar(100) NOT NULL COMMENT '상품명',
 	`description` longtext NULL,
-	main_image_id int NOT NULL COMMENT '상품 메인 이미지 아이디',
-	thumb_image_id int NOT NULL COMMENT '상품 썸네일 이미지 아이디',
+	main_image_id int NULL COMMENT '상품 메인 이미지 아이디',
+	thumb_image_id int NULL COMMENT '상품 썸네일 이미지 아이디',
 	supply_price int NOT NULL,
 	consumer_price int NOT NULL,
 	product_price int NOT NULL,
@@ -78,6 +78,9 @@ ALTER TABLE `shopping-mall`.`product` ADD CONSTRAINT product_FK FOREIGN KEY (cat
 ALTER TABLE `shopping-mall`.`product` ADD CONSTRAINT product_FK2 FOREIGN KEY (discount_id) REFERENCES `shopping-mall`.`discount`(id);
 ALTER TABLE `shopping-mall`.`product` ADD CONSTRAINT product_FK3 FOREIGN KEY (main_image_id) REFERENCES `shopping-mall`.`image`(id);
 ALTER TABLE `shopping-mall`.`product` ADD CONSTRAINT product_FK4 FOREIGN KEY (thumb_image_id) REFERENCES `shopping-mall`.`image`(id);
+
+CREATE INDEX product_is_show_IDX USING BTREE ON `shopping-mall`.product (is_show);
+CREATE INDEX product_delete_date_IDX USING BTREE ON `shopping-mall`.product (delete_date);
 
 ALTER TABLE `shopping-mall`.`discount` ADD CONSTRAINT discount_FK FOREIGN KEY (target_product_id) REFERENCES `shopping-mall`.`product`(id);
 ALTER TABLE `shopping-mall`.`discount` ADD CONSTRAINT discount_FK2 FOREIGN KEY (target_category_id) REFERENCES `shopping-mall`.`category`(id);

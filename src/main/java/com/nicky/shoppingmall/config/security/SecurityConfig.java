@@ -3,6 +3,7 @@ package com.nicky.shoppingmall.config.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
@@ -69,6 +71,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
                 .requestMatchers("/api/v1/auth/**", "/login", "/", "/signup", "/api/v1/image/**").permitAll()
+                .requestMatchers("/api/v1/product/**").permitAll()
                 .requestMatchers("/api/v1/image/product").authenticated()
                 
                 .requestMatchers("/admin", "/admin/**", "/api/v1/admin/auth/**").permitAll()
