@@ -1,13 +1,13 @@
 package com.nicky.shoppingmall.domain.category.service;
 
 import com.nicky.shoppingmall.config.Response;
-import com.nicky.shoppingmall.domain.category.dto.ReqAddCategory;
-import com.nicky.shoppingmall.domain.category.dto.ReqChangeCategory;
-import com.nicky.shoppingmall.domain.category.dto.ReqRemoveCategory;
+import com.nicky.shoppingmall.domain.category.dto.AddCategoryDto;
+import com.nicky.shoppingmall.domain.category.dto.ChangeCategoryDto;
+import com.nicky.shoppingmall.domain.category.dto.RemoveCategory;
 
 public interface CategoryService {
     public Response getCategoryList() throws Exception;
-    public Response addCategory(ReqAddCategory request) throws Exception;
-    public Response changeCategory(ReqChangeCategory request) throws Exception;
-    public Response removeCategory(ReqRemoveCategory request) throws Exception;
+    public Response addCategory(AddCategoryDto.Request request) throws Exception;
+    public Response changeCategory(ChangeCategoryDto.Request request) throws Exception;
+    public Response removeCategory(RemoveCategory.Request request) throws Exception;
 }

@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nicky.shoppingmall.config.Constant;
 import com.nicky.shoppingmall.config.Response;
-import com.nicky.shoppingmall.domain.category.dto.ReqAddCategory;
-import com.nicky.shoppingmall.domain.category.dto.ReqChangeCategory;
-import com.nicky.shoppingmall.domain.category.dto.ReqRemoveCategory;
+import com.nicky.shoppingmall.domain.category.dto.AddCategoryDto;
+import com.nicky.shoppingmall.domain.category.dto.ChangeCategoryDto;
+import com.nicky.shoppingmall.domain.category.dto.RemoveCategory;
 import com.nicky.shoppingmall.domain.category.service.CategoryService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,17 +28,17 @@ public class CategoryController {
     }
 
     @PostMapping(Constant.API_VER1 + "/category")
-    public Response addCategory(@RequestBody ReqAddCategory request) throws Exception{
+    public Response addCategory(@RequestBody @Valid AddCategoryDto.Request request) throws Exception{
         return categoryService.addCategory(request);
     }
 
     @PatchMapping(Constant.API_VER1 + "/category")
-    public Response changeCategory(@RequestBody ReqChangeCategory request) throws Exception{
+    public Response changeCategory(@RequestBody @Valid ChangeCategoryDto.Request request) throws Exception{
         return categoryService.changeCategory(request);
     }
 
     @DeleteMapping(Constant.API_VER1 + "/category")
-    public Response removeCategory(@RequestBody ReqRemoveCategory request) throws Exception{
+    public Response removeCategory(@RequestBody RemoveCategory.Request request) throws Exception{
         return categoryService.removeCategory(request);
     }
 

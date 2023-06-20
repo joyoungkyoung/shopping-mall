@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.nicky.shoppingmall.domain.category.dto.AddCategoryDto;
 import com.nicky.shoppingmall.domain.category.dto.ChangeCategoryDto;
-import com.nicky.shoppingmall.domain.category.dto.GetCategoryDto;
+import com.nicky.shoppingmall.domain.category.dto.CategoryDto;
 
 @Mapper
 public interface CategoryMapper {
-    public List<GetCategoryDto> getCategoryList();
+    public List<CategoryDto.Data> getCategoryList();
     public Integer getLatestOrderByParent(Integer parentCategoryId);
     public void addCategoryList(List<AddCategoryDto> dtoList);
     public void changeCategoryList(List<ChangeCategoryDto> dtoList);

@@ -16,7 +16,7 @@
         limit 1
     </select>
 
-    <select id="getCategoryList" resultType="GetCategoryDto">
+    <select id="getCategoryList" resultType="com.nicky.shoppingmall.domain.category.dto.CategoryDto$Data">
         /* CategoryMapper::getCategoryList */
         select * from category;
     </select>

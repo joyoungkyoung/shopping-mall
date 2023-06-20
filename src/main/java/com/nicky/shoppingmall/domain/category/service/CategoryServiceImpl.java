@@ -11,10 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nicky.shoppingmall.config.Response;
 import com.nicky.shoppingmall.domain.category.dto.AddCategoryDto;
 import com.nicky.shoppingmall.domain.category.dto.ChangeCategoryDto;
-import com.nicky.shoppingmall.domain.category.dto.GetCategoryDto;
-import com.nicky.shoppingmall.domain.category.dto.ReqAddCategory;
-import com.nicky.shoppingmall.domain.category.dto.ReqChangeCategory;
-import com.nicky.shoppingmall.domain.category.dto.ReqRemoveCategory;
+import com.nicky.shoppingmall.domain.category.dto.CategoryDto;
+import com.nicky.shoppingmall.domain.category.dto.RemoveCategory;
 import com.nicky.shoppingmall.domain.category.mapper.CategoryMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -25,15 +23,15 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
     @Override
     public Response getCategoryList() throws Exception {
-        List<GetCategoryDto> list = categoryMapper.getCategoryList();
-        
-        
-        return new Response(list);
+        List<CategoryDto.Data> list = categoryMapper.getCategoryList();
+        CategoryDto.Response res = new CategoryDto.Response(list);
+
+        return new Response(res);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Response addCategory(ReqAddCategory request) throws Exception {
+    public Response addCategory(AddCategoryDto.Request request) throws Exception {
         List<AddCategoryDto> categoryList = new ArrayList<>();
         Map<Integer, Integer> parentMap = new HashMap<>();
         
@@ -61,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Response changeCategory(ReqChangeCategory request) throws Exception {
+    public Response changeCategory(ChangeCategoryDto.Request request) throws Exception {
         // 1. 카테고리 데이터 수정
         List<ChangeCategoryDto> categoryList = new ArrayList<>();
         
@@ -78,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Response removeCategory(ReqRemoveCategory request) throws Exception {
+    public Response removeCategory(RemoveCategory.Request request) throws Exception {
         // 1. 카테고리 데이터 삭제
         categoryMapper.removeCategoryList(request.getCategoryIdList());
 
