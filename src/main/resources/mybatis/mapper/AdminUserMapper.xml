@@ -9,6 +9,11 @@
         select creatable_code from authority where code=#{code}
     </select>
 
+    <select id="getAdminList" resultType="AdminUserDto">
+        /* AdminUserMapper::getAdminList */
+        select id, username, nickname, authority_code, create_date, update_date from admin where delete_date is null
+    </select>
+
     <insert id="createAdmin" parameterType="CreateAdminDto" useGeneratedKeys="true" keyProperty="id">
         /* AdminUserMapper::createAdmin */
         insert into admin (username, `password`, nickname, authority_code, create_date) 
@@ -19,5 +24,18 @@
         /* AdminUserMapper::isExistUsername */
         select if(count(id) <![CDATA[>]]> 0, true, false) from admin where username=#{username}
     </select>
+
+    <update id="modifyAdmin" parameterType="ModifyAdminDto">
+        /* AdminUserMapper::modifyAdmin */
+        update admin set update_date = now()
+        <if test="nickname != null">,nickname = #{nickname}</if>
+        <if test="authorityCode != null">,authority_code = #{authorityCode}</if> 
+        where id = #{id}
+    </update>
+
+    <update id="removeAdminList" parameterType="List">
+        /* AdminUserMapper::removeAdminList */
+        update admin set delete_date = now() where id in <foreach collection="list" item="id" open="(" close=")" separator="," >#{id}</foreach>
+    </update>
 
 </mapper>

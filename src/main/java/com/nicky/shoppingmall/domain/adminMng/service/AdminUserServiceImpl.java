@@ -12,9 +12,13 @@ import com.nicky.shoppingmall.config.Response;
 import com.nicky.shoppingmall.config.business.BusinessException;
 import com.nicky.shoppingmall.config.error.ErrorInfo;
 import com.nicky.shoppingmall.config.userDetails.MyUserDetails;
+import com.nicky.shoppingmall.domain.adminMng.dto.AdminUserDto;
 import com.nicky.shoppingmall.domain.adminMng.dto.CreateAdminDto;
+import com.nicky.shoppingmall.domain.adminMng.dto.ModifyAdminDto;
 import com.nicky.shoppingmall.domain.adminMng.dto.ReqCreateAdminUser;
 import com.nicky.shoppingmall.domain.adminMng.dto.ReqDuplUsername;
+import com.nicky.shoppingmall.domain.adminMng.dto.ReqModifyAdminUser;
+import com.nicky.shoppingmall.domain.adminMng.dto.ReqRemoveAdminUser;
 import com.nicky.shoppingmall.domain.adminMng.mapper.AdminUserMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -29,12 +33,13 @@ public class AdminUserServiceImpl implements AdminUserService {
     private final PasswordEncoder passwordEncoder;
     
     @Override
-    public Response createAdminUser(ReqCreateAdminUser request, MyUserDetails myUserDetails) throws Exception {
-        // 아이디 중복체크
-        Boolean isExist = adminUserMapper.isExistUsername(request.getUsername());
-        if(isExist) throw new BusinessException(ErrorInfo.DUPLICATE_USERNAME);
+    public Response getAdminUserList() throws Exception {
+        List<AdminUserDto> list = adminUserMapper.getAdminList();
+        
+        return new Response(list);
+    }
 
-        // 권한체크 : request에 저장된 코드가 반환된 데이터에 없을 때 권한 에러 (권한 상승 필요)
+    private boolean hasAuthority(MyUserDetails myUserDetails, String authorityCode) {
         String authority = myUserDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
         authority = authority.replace("ROLE_", "");
 
@@ -42,8 +47,19 @@ public class AdminUserServiceImpl implements AdminUserService {
         String[] codeArray = creatableCode.split("\\|");
         List<String> codeList = new ArrayList<>();
         for(String code : codeArray) codeList.add(code);
-        
-        if(!codeList.contains(request.getAuthorityCode())) throw new BusinessException(ErrorInfo.REQUIRE_ELEVATION_OF_PRIVILEGE);
+
+        return codeList.contains(authorityCode);
+    }
+
+    @Override
+    public Response createAdminUser(ReqCreateAdminUser request, MyUserDetails myUserDetails) throws Exception {
+        // 아이디 중복체크
+        Boolean isExist = adminUserMapper.isExistUsername(request.getUsername());
+        if(isExist) throw new BusinessException(ErrorInfo.DUPLICATE_USERNAME);
+
+        // 권한체크 : request에 저장된 코드가 반환된 데이터에 없을 때 권한 에러 (권한 상승 필요)
+        boolean canProcess = hasAuthority(myUserDetails, request.getAuthorityCode());
+        if(!canProcess) throw new BusinessException(ErrorInfo.REQUIRE_ELEVATION_OF_PRIVILEGE);
 
         adminUserMapper.createAdmin(CreateAdminDto.builder()
                                                 .username(request.getUsername())
@@ -59,6 +75,27 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public Response duplUsername(ReqDuplUsername request) throws Exception {
         return new Response(adminUserMapper.isExistUsername(request.getUsername()));
+    }
+
+    @Override
+    public Response modifyAdminUser(ReqModifyAdminUser request, MyUserDetails myUserDetails) throws Exception {
+        // 권한체크 : request에 저장된 코드가 반환된 데이터에 없을 때 권한 에러 (권한 상승 필요)
+        boolean canProcess = hasAuthority(myUserDetails, request.getAuthorityCode());
+        if(!canProcess) throw new BusinessException(ErrorInfo.REQUIRE_ELEVATION_OF_PRIVILEGE);
+
+        adminUserMapper.modifyAdmin(new ModifyAdminDto(request.getId(), request.getNickname(), request.getAuthorityCode()));
+    
+        return new Response();
+    }
+
+    @Override
+    public Response removeAdminUser(ReqRemoveAdminUser request) throws Exception {
+        List<Integer> list = request.getAdminIdList();
+        if(list.size() <= 0) throw new BusinessException(ErrorInfo.INVALID_LIST_ZERO);
+        
+        adminUserMapper.removeAdminList(list);
+
+        return new Response();
     }
     
 }

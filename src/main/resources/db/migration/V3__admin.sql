@@ -16,7 +16,10 @@ CREATE TABLE `shopping-mall`.`admin` (
 ALTER TABLE `shopping-mall`.`authority` DROP creatable_code;
 ALTER TABLE `shopping-mall`.`authority` ADD creatable_code varchar(200) NULL;
 
+CREATE INDEX admin_delete_date_IDX USING BTREE ON `shopping-mall`.admin (delete_date);
+
+
 update `shopping-mall`.`authority` set creatable_code = 'STAFF|VIEWER' where code = 'OWNER';
 update `shopping-mall`.`authority` set creatable_code = 'VIEWER' where code = 'STAFF';
 
-insert into `shopping-mall`.`admin` (username, `password`, nickname, authority_code, create_date) values ('admin_owner', 'admin', 'admin_owner', 'OWNER', now())
+insert into `shopping-mall`.`admin` (username, `password`, nickname, authority_code, create_date) values ('admin_owner', '$2a$10$6mUGa19IhLlHaS6p9njcY.XExODJsQmWhm9Ytsm7Hi5PTxnE7ahT.', 'admin_owner', 'OWNER', now())
