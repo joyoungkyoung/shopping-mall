@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nicky.shoppingmall.config.Constant;
 import com.nicky.shoppingmall.config.Response;
 import com.nicky.shoppingmall.config.userDetails.MyUserDetails;
-import com.nicky.shoppingmall.domain.adminMng.dto.ReqCreateAdminUser;
-import com.nicky.shoppingmall.domain.adminMng.dto.ReqDuplUsername;
-import com.nicky.shoppingmall.domain.adminMng.dto.ReqModifyAdminUser;
-import com.nicky.shoppingmall.domain.adminMng.dto.ReqRemoveAdminUser;
+import com.nicky.shoppingmall.domain.adminMng.dto.CreateAdminDto;
+import com.nicky.shoppingmall.domain.adminMng.dto.DuplUsernameDto;
+import com.nicky.shoppingmall.domain.adminMng.dto.ModifyAdminDto;
+import com.nicky.shoppingmall.domain.adminMng.dto.RemoveAdminDto;
 import com.nicky.shoppingmall.domain.adminMng.service.AdminUserService;
 
 import jakarta.validation.Valid;
@@ -35,24 +35,24 @@ public class AdminUserController {
 
     // 관리자 등록
     @PostMapping(Constant.API_VER1 + "/admin/mng")
-    public Response createAdminUser(@RequestBody @Valid ReqCreateAdminUser request, @AuthenticationPrincipal MyUserDetails myUserDetails) throws Exception {
+    public Response createAdminUser(@RequestBody @Valid CreateAdminDto.Request request, @AuthenticationPrincipal MyUserDetails myUserDetails) throws Exception {
         return adminUserService.createAdminUser(request, myUserDetails);
     }
 
     @PostMapping(Constant.API_VER1 + "/admin/mng/dupl-username")
-    public Response duplUsername(@RequestBody @Valid ReqDuplUsername request) throws Exception {
+    public Response duplUsername(@RequestBody @Valid DuplUsernameDto.Request request) throws Exception {
         return adminUserService.duplUsername(request);
     }
 
     // 관리자 수정 
     @PatchMapping(Constant.API_VER1 + "/admin/mng")
-    public Response modifyAdminUser(@RequestBody @Valid ReqModifyAdminUser request, @AuthenticationPrincipal MyUserDetails myUserDetails) throws Exception {
+    public Response modifyAdminUser(@RequestBody @Valid ModifyAdminDto.Request request, @AuthenticationPrincipal MyUserDetails myUserDetails) throws Exception {
         return adminUserService.modifyAdminUser(request, myUserDetails);
     }
 
     // 관리자 삭제
     @DeleteMapping(Constant.API_VER1 + "/admin/mng")
-    public Response removeAdminUser(@RequestBody @Valid ReqRemoveAdminUser request) throws Exception {
+    public Response removeAdminUser(@RequestBody @Valid RemoveAdminDto.Request request) throws Exception {
         return adminUserService.removeAdminUser(request);
     }
 }

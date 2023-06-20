@@ -9,7 +9,7 @@
         select creatable_code from authority where code=#{code}
     </select>
 
-    <select id="getAdminList" resultType="AdminUserDto">
+    <select id="getAdminList" resultType="com.nicky.shoppingmall.domain.adminMng.dto.AdminDto$Info">
         /* AdminUserMapper::getAdminList */
         select id, username, nickname, authority_code, create_date, update_date from admin where delete_date is null
     </select>

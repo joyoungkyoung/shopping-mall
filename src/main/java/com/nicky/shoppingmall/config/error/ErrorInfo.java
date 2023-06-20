@@ -10,7 +10,7 @@ public enum ErrorInfo {
     WRONG_USERNAME_OR_PASSWORD                      (10000, "아이디 또는 비밀번호가 일치하지 않습니다."),
     INVALID_REGEX_EMAIL                             (10001, "이메일 형식이 맞지 않습니다."),
     ALREADY_EXIST_ACCOUNT                           (10002, "이미 존재하는 계정입니다."),
-    INVALID_TOKEN                                   (10004, "토큰이 유효하지 않습니다."),
+    INVALID_TOKEN                                   (10004, "액세스 토큰이 유효한 상태입니다."),
     // User
     NOT_FOUND_USER_DATA                             (20000, "유저 정보를 찾지 못했습니다."),
     // Admin Mng

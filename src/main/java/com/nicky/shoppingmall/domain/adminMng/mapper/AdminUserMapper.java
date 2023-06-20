@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.nicky.shoppingmall.domain.adminMng.dto.AdminUserDto;
+import com.nicky.shoppingmall.domain.adminMng.dto.AdminDto;
 import com.nicky.shoppingmall.domain.adminMng.dto.CreateAdminDto;
 import com.nicky.shoppingmall.domain.adminMng.dto.ModifyAdminDto;
 
@@ -14,7 +14,7 @@ public interface AdminUserMapper {
     public String getCreatableCode(String code);
     
     // 어드민 조회
-    public List<AdminUserDto> getAdminList();
+    public List<AdminDto.Info> getAdminList();
 
     // 어드민 등록
     public void createAdmin(CreateAdminDto dto);
