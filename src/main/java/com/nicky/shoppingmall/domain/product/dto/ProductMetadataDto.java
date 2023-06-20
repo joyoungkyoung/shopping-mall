@@ -11,4 +11,16 @@ public class ProductMetadataDto {
     private String fieldName;
     private String fieldValue;
     private Instant createDate;
+
+    public static class Insert {
+        private Integer productId;
+        private String fieldName;
+        private String fieldValue;
+
+        public Insert(Integer productId, String fieldName, String fieldValue) {
+            this.productId = productId;
+            this.fieldName = fieldName;
+            this.fieldValue = fieldValue;
+        }
+    }
 }

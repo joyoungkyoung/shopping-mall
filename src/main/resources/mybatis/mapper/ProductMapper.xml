@@ -3,7 +3,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nicky.shoppingmall.domain.product.mapper.ProductMapper">
-    <select id="getProductList" parameterType="GetProductDto" resultType="ResGetProduct">
+    <select id="getProductList" 
+        parameterType="com.nicky.shoppingmall.domain.product.dto.ProductListDto$Get" 
+        resultType="com.nicky.shoppingmall.domain.product.dto.ProductListDto$Data"
+    >
         /* ProductMapper::getProductList */
         select 
             p.id, p.name, p.description, 
@@ -19,7 +22,10 @@
         group by p.id
     </select>
 
-    <select id="getProduct" parameterType="GetProductDto" resultType="ProductDto">
+    <select id="getProduct" 
+        parameterType="com.nicky.shoppingmall.domain.product.dto.ProductDto$Get" 
+        resultType="com.nicky.shoppingmall.domain.product.dto.ProductDto$Data"
+    >
         /* ProductMapper::getProduct */
         select 
             p.id, p.name, p.description, 
@@ -31,7 +37,10 @@
         where p.id = #{productId}
     </select>
 
-    <select id="getProductImageList" parameterType="GetProductDto" resultType="ProductImageDto">
+    <select id="getProductImageList" 
+        parameterType="com.nicky.shoppingmall.domain.product.dto.ProductDto$Get" 
+        resultType="ProductImageDto"
+    >
         /* ProductMapper::getProductImage */
         select 
             pi2.id, pi2.image_id,
@@ -93,7 +102,9 @@
         </foreach>
     </insert>
     
-    <update id="modifyProductImage" parameterType="ModifyProductImageDto">
+    <update id="modifyProductImage" 
+        parameterType="com.nicky.shoppingmall.domain.product.dto.ProductDto$Update"
+    >
         /* ProductMapper::modifyProductImage */
         update product set main_image_id=#{mainImageId}, thumb_image_id=#{thumbImageId} where id=#{productId}
     </update>

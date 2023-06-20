@@ -1,6 +1,14 @@
 package com.nicky.shoppingmall.domain.product.dto;
 
+import java.util.List;
+
+import com.nicky.shoppingmall.config.business.BusinessDto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class CreateProductDto {
     private Integer id;
@@ -36,4 +44,72 @@ public class CreateProductDto {
     }
 
     public Integer getId() { return id; }
+
+    @Getter
+    public static class Request extends BusinessDto {
+        @Getter
+        @NoArgsConstructor
+        public static class Metadata {
+            private String fieldName;
+            private String fieldValue;
+        }
+
+        @Getter
+        @NoArgsConstructor
+        public static class Option {
+            private String optName;
+            private String optValue;
+        }
+
+        // product's
+        // category_id, discount_id, name, description, main_image_file, thumb_image_file, supply_price, consumer_price, product_price, tax, margin, stock
+        @NotNull
+        private Integer categoryId;
+        @NotNull
+        private Integer discountId;
+        @NotBlank
+        private String name;
+        @NotBlank
+        private String description; // html
+        @NotNull
+        private Integer supplyPrice;
+        @NotNull
+        private Integer consumerPrice;
+        @NotNull
+        private Integer productPrice;
+        @NotNull
+        private Integer tax;
+        @NotNull
+        private Integer margin;
+        @NotNull
+        private Integer stock;
+
+        // metadata's
+        // metadata array [field_name, field_value]
+        @NotNull
+        private List<Metadata> metadataList;
+        
+        // option's
+        // opt array [opt_name, opt_value]
+        @NotNull
+        private List<Option> optionList;
+        
+        @Override
+        public String invalidBlank() {
+            if(isBlank(name)) return "name";
+            if(isBlank(description)) return "description";
+
+            return null;
+        }
+    }
+
+    @Getter
+    public static class Response {
+        private Integer id;  
+
+        public Response(Integer id) {
+            this.id = id;
+        }
+    }
+
 }

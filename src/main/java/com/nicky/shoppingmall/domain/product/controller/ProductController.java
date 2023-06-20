@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nicky.shoppingmall.config.Constant;
 import com.nicky.shoppingmall.config.Response;
-import com.nicky.shoppingmall.domain.product.dto.request.ReqCreateProduct;
-import com.nicky.shoppingmall.domain.product.dto.request.ReqCreateProductComplete;
-import com.nicky.shoppingmall.domain.product.dto.request.ReqRemoveProductList;
+import com.nicky.shoppingmall.domain.product.dto.CreateProductCompleteDto;
+import com.nicky.shoppingmall.domain.product.dto.CreateProductDto;
+import com.nicky.shoppingmall.domain.product.dto.RemoveProductDto;
 import com.nicky.shoppingmall.domain.product.service.ProductService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -35,19 +36,19 @@ public class ProductController {
 
     @PreAuthorize(Constant.HAS_ENABLE_UPDATE)
     @PostMapping(Constant.API_VER1 + "/product")
-    public Response createProduct(@RequestBody ReqCreateProduct request) throws Exception {
+    public Response createProduct(@RequestBody @Valid CreateProductDto.Request request) throws Exception {
         return productService.createProduct(request);
     }
 
     @PreAuthorize(Constant.HAS_ENABLE_UPDATE)
     @PostMapping(Constant.API_VER1 + "/product/complete")
-    public Response createProductComplete(@RequestBody ReqCreateProductComplete request) throws Exception {
+    public Response createProductComplete(@RequestBody @Valid CreateProductCompleteDto.Request request) throws Exception {
         return productService.createProductComplete(request);
     }
 
     @PreAuthorize(Constant.HAS_ENABLE_UPDATE)
     @DeleteMapping(Constant.API_VER1 + "/product")
-    public Response removeProductList(@RequestBody ReqRemoveProductList request) throws Exception {
+    public Response removeProductList(@RequestBody @Valid RemoveProductDto.Request request) throws Exception {
         return productService.removeProductList(request);
     }
 }
