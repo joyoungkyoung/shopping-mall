@@ -70,7 +70,8 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
-                .requestMatchers("/api/v1/auth/**", "/login", "/", "/signup", "/api/v1/image/**").permitAll()
+                .requestMatchers("/", "/login", "/signup", "/product-detail").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/api/v1/image/**").permitAll()
                 .requestMatchers("/api/v1/product/**").permitAll()
                 .requestMatchers("/api/v1/image/product").authenticated()
                 

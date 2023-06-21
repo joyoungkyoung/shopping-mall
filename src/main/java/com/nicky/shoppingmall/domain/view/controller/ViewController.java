@@ -25,6 +25,9 @@ public class ViewController {
         return new ModelAndView("pages/signup");
     }
 
-
+    @GetMapping("/product-detail")
+    private ModelAndView productDetail() {
+        return new ModelAndView("pages/productDetail");
+    }
 
 }

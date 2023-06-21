@@ -3,3 +3,14 @@ function validEmail(email) {
 
     return form.test(email);
 }
+
+function getParamMap(queryString) {
+    const splited = queryString.replace("?", "").split(/[=?&]/);
+    const param = {};
+
+    for (let i = 0; i < splited.length; i++) {
+        param[splited[i]] = splited[++i];
+    }
+
+    return param;
+}

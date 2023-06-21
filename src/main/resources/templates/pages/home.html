@@ -33,15 +33,14 @@
                 getProductList();
             });
 
-            function handleClickCard() {
-                console.log("asdasdas");
+            function handleClickCard(id) {
+                location.href = "/product-detail?id=" + id;
             }
 
             function getProductList() {
                 $.ajax({
                     url: "http://localhost:8080/api/v1/product",
                     data: null,
-                    headers: { Authorization: `Bearer ${accessToken}` },
                     method: "get",
                     contentType: "application/json",
                 })
@@ -49,7 +48,7 @@
                         console.log(json);
                         if (json.code === 200) {
                             const productSection = $("#product-section");
-                            json.data?.map((item) => {
+                            json.data?.list?.map((item) => {
                                 productSection.append(`
                                     <div class="card">
                                         <img src="${item.thumbImageUrl}" alt="thumbnail" onclick="javascript:handleClickCard(${item.id})" />

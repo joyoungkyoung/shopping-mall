@@ -114,3 +114,18 @@ a {
     cursor: pointer;
     transition: 0.3s;
 }
+
+select {
+    position: relative;
+    padding: 12px 40px 12px 22px;
+    font-size: 12px;
+    border: 1px solid $border;
+    background-image: url($image-path + "/icon/arrw_down.svg");
+    background-size: auto 20%;
+    background-position: 97% center;
+    background-repeat: no-repeat;
+    transition: 0.3s;
+    &:focus {
+        background-image: url($image-path + "/icon/arrw_up.svg");
+    }
+}

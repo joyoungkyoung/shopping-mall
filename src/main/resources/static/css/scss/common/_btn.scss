@@ -1,17 +1,14 @@
-[class*="btn-"] {
+button[class*="btn-"] {
     font-weight: 500;
-    box-shadow: inset rgba($bk, 0.17) 0 -5px 0;
     user-select: none;
     &:hover {
         padding-top: 1px;
-        box-shadow: inset rgba($bk, 0) 0 0 0 !important;
     }
     &.min {
         padding-left: 20px;
         padding-right: 20px;
         min-width: 60px;
         height: 30px;
-        box-shadow: inset rgba($bk, 0.17) 0 -3px 0;
         &:hover {
             padding-top: 1px;
         }
@@ -22,16 +19,15 @@
         min-width: 120px;
         height: 50px;
         &:hover {
-            padding-top: 3px;
+            padding-top: 1px;
         }
     }
     &.full {
         width: 100%;
-        height: 90px;
+        height: 50px;
         max-height: 100%;
-        font-size: 24px;
         &:hover {
-            padding-top: 3px;
+            padding-top: 1px;
         }
     }
 }
@@ -44,11 +40,14 @@
     color: $font-color;
     background-color: $bg-lt;
     border: $border solid 1px;
-    box-shadow: inset rgba($bk, 0.07) 0 -5px 0 !important;
 }
 .btn-secondary {
     color: $wh;
     background-color: $secondary-lt;
-    border: $border solid 1px;
-    box-shadow: inset rgba($bk, 0.07) 0 -5px 0 !important;
+    border: $secondary-lt solid 1px;
+}
+.btn-secondary-border {
+    color: $secondary-lt;
+    background-color: $wh;
+    border: $secondary-lt solid 1px;
 }
