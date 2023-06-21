@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyUserDetails implements UserDetails {
-
+    private Integer id;
     private String username;
     private String password;
     private String authorityCode;
@@ -20,6 +20,10 @@ public class MyUserDetails implements UserDetails {
         ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_"+authorityCode));
         return authorities;
+    }
+
+    public Integer getId() {
+        return this.id;
     }
 
     @Override

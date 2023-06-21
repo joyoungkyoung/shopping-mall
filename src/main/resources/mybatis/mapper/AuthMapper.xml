@@ -5,7 +5,7 @@
 <mapper namespace="com.nicky.shoppingmall.domain.auth.mapper.AuthMapper">
     <select id="getUserDetails" parameterType="String" resultType="MyUserDetails">
         /* AuthMapper::getUserDetails */
-        select email AS username, password, authority_code
+        select id, email AS username, password, authority_code
     	from `user`
     	where email = #{username} and status = 1
     </select>

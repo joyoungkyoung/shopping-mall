@@ -73,6 +73,7 @@ public class SecurityConfig {
                 .requestMatchers("/", "/login", "/signup", "/product-detail").permitAll()
                 .requestMatchers("/api/v1/auth/**", "/api/v1/image/**").permitAll()
                 .requestMatchers("/api/v1/product/**").permitAll()
+                .requestMatchers("/api/v1/cart/**").hasAnyAuthority("ROLE_CUSTOMER")
                 .requestMatchers("/api/v1/image/product").authenticated()
                 
                 .requestMatchers("/admin", "/admin/**", "/api/v1/admin/auth/**").permitAll()
